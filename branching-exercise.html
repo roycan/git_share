@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Branching Exercise | Git & GitHub Classroom Companion</title>
+  <meta name="description" content="A structured assignment teaching students how to create feature branches, implement changes, and merge them back into the main branch.">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Branching Exercise | Git & GitHub Classroom Companion">
+  <meta property="og:description" content="A structured assignment teaching students how to create feature branches, implement changes, and merge them back into the main branch.">
+  <meta property="og:type" content="website">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Page specific styles -->
+  <style>
+    .assignment-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    .assignment-header {
+      background: linear-gradient(135deg, #0366d6, #28a745);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .assignment-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .assignment-subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    
+    .assignment-content {
+      padding: 2rem;
+    }
+
+    .assignment-content h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--foreground);
+    }
+    
+    .assignment-content h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: var(--foreground);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+    
+    .assignment-content h3 {
+      font-size: 1.25rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--foreground);
+    }
+    
+    .assignment-content p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      color: var(--foreground);
+    }
+    
+    .assignment-content ul, .assignment-content ol {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    
+    .assignment-content li {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+      color: var(--foreground);
+    }
+    
+    .assignment-content code {
+      font-family: monospace;
+      background-color: var(--surface);
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      font-size: 0.9em;
+      color: var(--foreground);
+    }
+    
+    .assignment-content pre {
+      background-color: var(--surface);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+    }
+    
+    .assignment-content pre code {
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+    }
+    
+    .assignment-content blockquote {
+      border-left: 4px solid var(--primary);
+      padding-left: 1rem;
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 1rem;
+      color: var(--muted);
+    }
+    
+    .assignment-content a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    
+    .assignment-content a:hover {
+      text-decoration: underline;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      justify-content: center;
+    }
+    
+    .action-button {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+    
+    .action-button:hover {
+      background-color: #0356a8;
+      transform: translateY(-2px);
+    }
+    
+    .action-button i {
+      margin-right: 0.5rem;
+    }
+    
+    .action-button.secondary {
+      background-color: var(--surface);
+      color: var(--foreground);
+      border: 1px solid var(--border);
+    }
+    
+    .action-button.secondary:hover {
+      background-color: var(--muted-background);
+    }
+
+    .emoji {
+      font-style: normal;
+      font-weight: normal;
+    }
+    
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+  </style>
+</head>
+
+<body class="light-mode">
+  <div class="layout-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="ri-github-fill"></i>
+          <span>Git Classroom</span>
+        </div>
+        <button class="close-menu" id="close-menu">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      
+      <div class="user-profile">
+        <div class="avatar">
+          <span>T</span>
+        </div>
+        <div class="user-info">
+          <span class="user-name">CS Teacher</span>
+          <span class="user-role">Workshop Participant</span>
+        </div>
+      </div>
+      
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>Your Progress</span>
+          <span class="progress-percentage">50%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 50%"></div>
+        </div>
+        <div class="progress-stats">
+          <div class="stat">
+            <span class="stat-value">2/4</span>
+            <span class="stat-label">Modules</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">2/5</span>
+            <span class="stat-label">Badges</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">75%</span>
+            <span class="stat-label">Quiz Score</span>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="index.html">
+              <i class="ri-home-line"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="git-basics.html">
+              <i class="ri-git-repository-line"></i>
+              <span>Git Basics</span>
+            </a>
+          </li>
+          <li>
+            <a href="branching.html">
+              <i class="ri-git-branch-line"></i>
+              <span>Branching</span>
+            </a>
+          </li>
+          <li>
+            <a href="merge-conflicts.html">
+              <i class="ri-error-warning-line"></i>
+              <span>Merge Conflicts</span>
+            </a>
+          </li>
+          <li>
+            <a href="collaboration.html">
+              <i class="ri-team-line"></i>
+              <span>Collaboration</span>
+            </a>
+          </li>
+          <li>
+            <a href="vscode.html">
+              <i class="ri-terminal-line"></i>
+              <span>VS Code</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="templates.html" class="active">
+              <i class="ri-file-copy-line"></i>
+              <span>Templates</span>
+            </a>
+          </li>
+          <li>
+            <a href="templates.html#guides">
+              <i class="ri-book-open-line"></i>
+              <span>Student Guides</span>
+            </a>
+          </li>
+          <li>
+            <a href="quizzes.html">
+              <i class="ri-question-line"></i>
+              <span>Quizzes</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="feedback.html">
+              <i class="ri-chat-1-line"></i>
+              <span>Feedback</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="theme-toggle">
+        <span>Theme</span>
+        <div class="toggle-switch">
+          <input type="checkbox" id="theme-toggle-checkbox">
+          <label for="theme-toggle-checkbox" class="toggle-label">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navigation Bar -->
+      <nav class="top-nav">
+        <div class="menu-toggle" id="menu-toggle">
+          <i class="ri-menu-line"></i>
+        </div>
+        <div class="page-title">
+          <h1>Branching Exercise</h1>
+        </div>
+        <div class="nav-actions">
+          <button class="theme-btn" id="mobile-theme-toggle">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+          </button>
+          <a href="https://github.com/topics/github-classroom" target="_blank" class="github-link">
+            <i class="ri-github-fill"></i>
+          </a>
+        </div>
+      </nav>
+      
+      <!-- Assignment Content -->
+      <div class="content-container">
+        <div class="assignment-container">
+          <div class="assignment-header">
+            <div class="assignment-title">Git Power-Up: Feature Branching & Merging</div>
+            <div class="assignment-subtitle">Learn the powerful workflow of feature branches</div>
+          </div>
+          
+          <div class="assignment-content">
+            <h1>Git Power-Up: Feature Branching & Merging! 🌿🔀</h1>
+
+            <p><strong>Objective:</strong> This assignment builds on your basic Git knowledge. You'll learn the powerful workflow of using feature branches to make changes without affecting the main codebase, and then how to integrate those changes back safely.</p>
+            
+            <p><strong>Estimated Time:</strong> 45-60 minutes</p>
+            
+            <p><strong>Prerequisites:</strong></p>
+            <ol>
+              <li>Completion of the "My First Git Adventure: Clone, Stage, Commit, Push!" assignment (or equivalent knowledge of <code>clone</code>, <code>add</code>, <code>commit</code>, <code>push</code>).</li>
+              <li>Git installed on your computer.</li>
+              <li>A GitHub (or GitLab, Bitbucket) account.</li>
+              <li>A repository you can clone and push to. You can use the repository from the previous assignment (<code>my-first-git-adventure</code>) or create a new one. If creating a new one, ensure it has at least a <code>README.md</code> file.</li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Scenario: Adding a New Feature 💡</h2>
+            
+            <p>Imagine you're working on a project (your repository) and you want to add a new "feature." Instead of making changes directly on your main branch (often called <code>main</code> or <code>master</code>), it's best practice to create a separate "feature branch." This keeps your main branch stable.</p>
+            
+            <p><strong>Our "Feature":</strong> We'll add a new section to your <code>README.md</code> file describing your favorite hobby.</p>
+            
+            <hr>
+            
+            <h2>Step 1: Prepare Your Local Repository 💻</h2>
+            
+            <ol>
+              <li><strong>Clone (if needed) or Navigate:</strong>
+                <ul>
+                  <li>If you don't have a local copy of your chosen repository, clone it:
+                    <pre><code>git clone &lt;repository_url&gt;
+cd &lt;repository_name&gt;</code></pre>
+                  </li>
+                  <li>If you already have it cloned, navigate into the project directory:
+                    <pre><code>cd path/to/your/repository</code></pre>
+                  </li>
+                </ul>
+              </li>
+              <li><strong>Ensure Your Main Branch is Up-to-Date:</strong>
+                <p>Before creating a new branch, it's good practice to make sure your local <code>main</code> (or <code>master</code>) branch is synchronized with the remote repository.</p>
+                <pre><code>git checkout main  # Or git checkout master
+git pull origin main # Or git pull origin master</code></pre>
+                <p>This fetches any changes from the remote and merges them into your local main branch.</p>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 2: Create and Switch to a Feature Branch 🌿</h2>
+            
+            <ol>
+              <li><strong>Create a New Branch:</strong>
+                <p>Let's name our feature branch <code>add-hobby-section</code>. Use the <code>git branch</code> command to create it:</p>
+                <pre><code>git branch add-hobby-section</code></pre>
+                <p>This creates the branch but doesn't switch you to it yet.</p>
+              </li>
+              <li><strong>Switch to Your New Branch (Checkout):</strong>
+                <p>Now, move into your new branch using <code>git checkout</code>:</p>
+                <pre><code>git checkout add-hobby-section</code></pre>
+                <p>You should see a message like "Switched to branch 'add-hobby-section'".</p>
+                <p><em>Pro Tip: You can create and switch to a new branch in one command using <code>git checkout -b &lt;branch-name&gt;</code>:</em></p>
+                <pre><code>git checkout -b add-hobby-section</code></pre>
+              </li>
+              <li><strong>Verify Your Current Branch:</strong>
+                <p>To confirm you're on the correct branch, type:</p>
+                <pre><code>git branch</code></pre>
+                <p>You should see a list of branches, with an asterisk <code>*</code> next to <code>add-hobby-section</code>.</p>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 3: Implement the Feature (Make Changes) ✍️</h2>
+            
+            <p>Now you're working on your isolated <code>add-hobby-section</code> branch. Any changes here won't affect the <code>main</code> branch until you merge them.</p>
+            
+            <ol>
+              <li><strong>Modify <code>README.md</code>:</strong>
+                <ul>
+                  <li>Open the <code>README.md</code> file in your text editor.</li>
+                  <li>Add a new section like this (feel free to write about your actual hobby!):
+                    <pre><code>## My Favorite Hobby
+
+My favorite hobby is hiking. I love exploring new trails and enjoying nature.
+It's a great way to stay active and clear my mind.</code></pre>
+                  </li>
+                  <li>Save the file.</li>
+                </ul>
+              </li>
+              <li><strong>Stage Your Changes:</strong>
+                <p>Add the modified <code>README.md</code> to the staging area:</p>
+                <pre><code>git add README.md</code></pre>
+              </li>
+              <li><strong>Commit Your Changes:</strong>
+                <p>Commit the changes with a descriptive message:</p>
+                <pre><code>git commit -m "Feat: Add favorite hobby section to README"</code></pre>
+                <p><em>(Using "Feat:" is a common convention for commits that add a new feature.)</em></p>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 4: Push Your Feature Branch to the Remote Repository 📤</h2>
+            
+            <p>It's good practice to push your feature branch to the remote repository. This backs up your work and allows others to see it if you're collaborating.</p>
+            
+            <ol>
+              <li><strong>Push the Branch:</strong>
+                <p>Since this branch doesn't exist on the remote yet, you'll need to tell Git where to push it:</p>
+                <pre><code>git push -u origin add-hobby-section</code></pre>
+                <p>The <code>-u</code> flag (short for <code>--set-upstream</code>) sets up a tracking relationship between your local branch and the new remote branch. For future pushes on this branch, you can just use <code>git push</code>.</p>
+              </li>
+              <li><strong>Verify on GitHub:</strong>
+                <ul>
+                  <li>Go to your repository on GitHub.</li>
+                  <li>You should see a notification saying "add-hobby-section had recent pushes."</li>
+                  <li>You might also see a button to "Compare & pull request." We'll cover pull requests later, but you can click on the "branches" link to see your new branch listed there.</li>
+                </ul>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 5: Merge Your Feature Branch into the Main Branch 🔀</h2>
+            
+            <p>Once your feature is complete and committed on its branch, you'll want to merge those changes back into your <code>main</code> (or <code>master</code>) branch.</p>
+            
+            <ol>
+              <li><strong>Switch Back to Your Main Branch:</strong>
+                <p>First, check out the branch you want to merge <em>into</em>:</p>
+                <pre><code>git checkout main # Or git checkout master</code></pre>
+              </li>
+              <li><strong>Ensure Your Main Branch is Up-to-Date (Again):</strong>
+                <p>It's always a good idea to pull any recent changes from the remote <code>main</code> branch before merging, just in case someone else pushed updates:</p>
+                <pre><code>git pull origin main # Or git pull origin master</code></pre>
+              </li>
+              <li><strong>Merge the Feature Branch:</strong>
+                <p>Now, merge the changes from <code>add-hobby-section</code> <em>into</em> your current branch (<code>main</code>):</p>
+                <pre><code>git merge add-hobby-section</code></pre>
+                <ul>
+                  <li>If there are no conflicting changes between the branches, Git will perform a "fast-forward" merge or create a merge commit. You should see the changes from your feature branch (the new hobby section) now reflected in the files on your <code>main</code> branch.</li>
+                  <li><em>Conflict Note: If <code>main</code> had also changed the same lines in <code>README.md</code> that you changed in your feature branch, you might encounter a "merge conflict." Resolving conflicts is a more advanced topic not covered in this assignment, but Git will tell you which files have conflicts.</em></li>
+                </ul>
+              </li>
+              <li><strong>Check <code>README.md</code>:</strong>
+                <p>Open <code>README.md</code> locally. You should see the "My Favorite Hobby" section is now present.</p>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 6: Push the Merged Changes on Main 📤</h2>
+            
+            <p>Your local <code>main</code> branch now has the new feature. You need to push these updates to the remote <code>main</code> branch on GitHub.</p>
+            
+            <ol>
+              <li><strong>Push the Main Branch:</strong>
+                <pre><code>git push origin main # Or git push origin master</code></pre>
+              </li>
+              <li><strong>Verify on GitHub:</strong>
+                <ul>
+                  <li>Go to your repository on GitHub and make sure you are viewing the <code>main</code> branch.</li>
+                  <li>Refresh the page. The <code>README.md</code> file should now contain the "My Favorite Hobby" section.</li>
+                </ul>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 7: Clean Up (Optional) 🧹</h2>
+            
+            <p>Once a feature branch has been merged and its changes are on the main branch, you can delete the feature branch if you no longer need it.</p>
+            
+            <ol>
+              <li><strong>Delete the Local Feature Branch:</strong>
+                <pre><code>git branch -d add-hobby-section</code></pre>
+                <p><em>(Use <code>-D</code> instead of <code>-d</code> if the branch hasn't been fully merged and you still want to force delete it – be careful with this!)</em></p>
+              </li>
+              <li><strong>Delete the Remote Feature Branch (Optional):</strong>
+                <p>If you pushed your feature branch to the remote, you can also delete it there:</p>
+                <pre><code>git push origin --delete add-hobby-section</code></pre>
+                <p>Or, you can often delete it through the GitHub interface (on the "branches" page of your repository).</p>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Well Done, Branch Master! 🌳</h2>
+            
+            <p>You've now learned how to:</p>
+            <ul>
+              <li>✅ Create and switch to a feature branch.</li>
+              <li>✅ Make and commit changes on that branch.</li>
+              <li>✅ Push the feature branch to the remote.</li>
+              <li>✅ Merge the feature branch back into your main branch.</li>
+              <li>✅ Push the updated main branch.</li>
+              <li>✅ (Optionally) Delete the feature branch.</li>
+            </ul>
+            
+            <p>This branching workflow is fundamental to collaborative software development and helps keep your main codebase clean and stable while you work on new features or fixes.</p>
+            
+            <div class="action-buttons">
+              <a href="templates.html" class="action-button secondary">
+                <i class="ri-arrow-left-line"></i> Back to Templates
+              </a>
+              <a href="docs/branching_exercise.md" download class="action-button">
+                <i class="ri-download-line"></i> Download Markdown
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script>
+    // Mobile menu toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.add('open');
+    });
+    
+    document.getElementById('close-menu').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.remove('open');
+    });
+    
+    // Theme toggle
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      document.body.classList.toggle('light-mode');
+      
+      // Store theme preference
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
+    }
+    
+    document.getElementById('theme-toggle-checkbox').addEventListener('change', toggleTheme);
+    document.getElementById('mobile-theme-toggle').addEventListener('click', toggleTheme);
+    
+    // Set theme based on preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
+      document.getElementById('theme-toggle-checkbox').checked = true;
+    }
+  </script>
+</body>
+</html>
