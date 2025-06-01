@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Branching & Merging | Git & GitHub Classroom Companion</title>
+  <meta name="description" content="Learn how to create branches, switch between them, and merge changes in Git using VSCode's graphical interface.">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Branching & Merging | Git & GitHub Classroom Companion">
+  <meta property="og:description" content="Learn how to create branches, switch between them, and merge changes in Git using VSCode's graphical interface.">
+  <meta property="og:type" content="website">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Page specific styles -->
+  <style>
+    .branching-simulator {
+      height: 300px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      position: relative;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    
+    .branch {
+      position: absolute;
+      padding: 0.5rem 1rem;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 1rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: move;
+      user-select: none;
+      z-index: 10;
+    }
+    
+    .teacher-tip, .student-tip {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .teacher-tip {
+      background-color: rgba(46, 164, 79, 0.1);
+      border-left: 4px solid var(--success);
+    }
+    
+    .student-tip {
+      background-color: rgba(227, 160, 8, 0.1);
+      border-left: 4px solid var(--warning);
+    }
+    
+    .tip-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--foreground);
+    }
+    
+    .tip-header i {
+      margin-right: 0.5rem;
+    }
+    
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .concept-card {
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+    
+    .concept-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--foreground);
+    }
+    
+    .concept-header i {
+      margin-right: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .code-block {
+      background-color: var(--surface);
+      padding: 0.75rem;
+      border-radius: 0.25rem;
+      margin-top: 0.75rem;
+      border: 1px solid var(--border);
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--foreground);
+    }
+  </style>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+</head>
+<body class="light-mode">
+  <div class="layout-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="ri-github-fill"></i>
+          <span>Git Classroom</span>
+        </div>
+        <button class="close-menu" id="close-menu">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      
+      <div class="user-profile">
+        <div class="avatar">
+          <span>T</span>
+        </div>
+        <div class="user-info">
+          <span class="user-name">CS Teacher</span>
+          <span class="user-role">Workshop Participant</span>
+        </div>
+      </div>
+      
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>Your Progress</span>
+          <span class="progress-percentage">50%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 50%"></div>
+        </div>
+        <div class="progress-stats">
+          <div class="stat">
+            <span class="stat-value">2/4</span>
+            <span class="stat-label">Modules</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">2/5</span>
+            <span class="stat-label">Badges</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">75%</span>
+            <span class="stat-label">Quiz Score</span>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="index.html">
+              <i class="ri-home-line"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="git-basics.html">
+              <i class="ri-git-repository-line"></i>
+              <span>Git Basics</span>
+            </a>
+          </li>
+          <li>
+            <a href="branching.html" class="active">
+              <i class="ri-git-branch-line"></i>
+              <span>Branching</span>
+            </a>
+          </li>
+          <li>
+            <a href="merge-conflicts.html">
+              <i class="ri-error-warning-line"></i>
+              <span>Merge Conflicts</span>
+            </a>
+          </li>
+          <li>
+            <a href="collaboration.html">
+              <i class="ri-team-line"></i>
+              <span>Collaboration</span>
+            </a>
+          </li>
+          <li>
+            <a href="vscode.html">
+              <i class="ri-terminal-line"></i>
+              <span>VS Code</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="templates.html">
+              <i class="ri-file-copy-line"></i>
+              <span>Templates</span>
+            </a>
+          </li>
+          <li>
+            <a href="student-guides.html">
+              <i class="ri-book-open-line"></i>
+              <span>Student Guides</span>
+            </a>
+          </li>
+          <li>
+            <a href="quizzes.html">
+              <i class="ri-question-line"></i>
+              <span>Quizzes</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="feedback.html">
+              <i class="ri-chat-1-line"></i>
+              <span>Feedback</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="theme-toggle">
+        <span>Theme</span>
+        <div class="toggle-switch">
+          <input type="checkbox" id="theme-toggle-checkbox">
+          <label for="theme-toggle-checkbox" class="toggle-label">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navigation Bar -->
+      <nav class="top-nav">
+        <div class="menu-toggle" id="menu-toggle">
+          <i class="ri-menu-line"></i>
+        </div>
+        <div class="page-title">
+          <h1>Branching & Merging</h1>
+        </div>
+        <div class="nav-actions">
+          <button class="theme-btn" id="mobile-theme-toggle">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+          </button>
+          <a href="https://github.com/topics/github-classroom" target="_blank" class="github-link">
+            <i class="ri-github-fill"></i>
+          </a>
+        </div>
+      </nav>
+      
+      <!-- Branching Content -->
+      <div class="content-container">
+        <section class="module-section">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+            <h2 class="section-title">
+              <i class="ri-git-branch-line" style="color: #0366d6; margin-right: 0.5rem;"></i>
+              Branching and Merging
+            </h2>
+            <div style="display: flex; align-items: center;">
+              <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background-color: rgba(46, 164, 79, 0.2); color: var(--success); margin-right: 0.5rem;">
+                <i class="ri-checkbox-circle-fill" style="margin-right: 0.25rem;"></i> 
+                In Progress
+              </span>
+              <span style="font-size: 0.875rem; color: var(--muted);">Module 2 of 4</span>
+            </div>
+          </div>
+          
+          <div style="background-color: var(--background); border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; margin-bottom: 1.5rem;">
+            <div style="padding: 1.5rem;">
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                Branching allows you to develop features, fix bugs, or experiment with new ideas in isolation from the main codebase. 
+                In this module, you'll learn how to create branches, switch between them, and merge changes.
+              </p>
+              
+              <div class="teacher-tip">
+                <div class="tip-header">
+                  <i class="ri-user-star-line" style="color: var(--success);"></i>
+                  Teacher Tip
+                </div>
+                <p style="font-size: 0.875rem; color: var(--foreground);">
+                  Branching is a powerful concept to introduce to students working on group projects. It lets them work on features 
+                  independently without stepping on each other's toes.
+                </p>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">
+                Visualizing Branching
+              </h3>
+              
+
+              
+              <div class="branching-simulator">
+                <img src="images/branching.svg" alt="Git branching visualization" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">
+                Key Branching Concepts
+              </h3>
+              
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <i class="ri-git-branch-line"></i>
+                    Creating Branches
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    A branch is a lightweight movable pointer to a commit. When you create a branch, you're creating a new pointer to the current commit.
+                  </p>
+                  <div class="code-block">
+                    # In VSCode<br>
+                    1. Click the branch name in status bar<br>
+                    2. Select "Create new branch..."<br>
+                    3. Enter branch name and press Enter
+                  </div>
+                </div>
+                
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <i class="ri-arrow-left-right-line"></i>
+                    Switching Branches
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Switching branches updates the files in your working directory to match the version stored in that branch.
+                  </p>
+                  <div class="code-block">
+                    # In VSCode<br>
+                    1. Click the branch name in status bar<br>
+                    2. Select the branch you want to switch to
+                  </div>
+                </div>
+                
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <i class="ri-merge-cells-horizontal"></i>
+                    Merging Branches
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Merging combines the changes from one branch into another. This is how you integrate work from different branches.
+                  </p>
+                  <div class="code-block">
+                    # In VSCode<br>
+                    1. Switch to the target branch (e.g., main)<br>
+                    2. Open Source Control panel<br>
+                    3. Click "..." (More Actions)<br>
+                    4. Select "Branch &gt; Merge Branch..."<br>
+                    5. Choose the branch to merge from
+                  </div>
+                </div>
+                
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <i class="ri-delete-bin-line"></i>
+                    Deleting Branches
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Once a branch is merged, you can safely delete it to keep your repository clean.
+                  </p>
+                  <div class="code-block">
+                    # In VSCode<br>
+                    1. Open Source Control panel<br>
+                    2. Click "..." (More Actions)<br>
+                    3. Select "Branch &gt; Delete Branch..."<br>
+                    4. Choose the branch to delete
+                  </div>
+                </div>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">
+                Common Branching Strategies
+              </h3>
+              
+              <div style="background-color: var(--surface); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                <h4 style="font-weight: 600; margin-bottom: 0.75rem; color: var(--foreground);">
+                  Feature Branch Workflow
+                </h4>
+                <p style="color: var(--muted); font-size: 0.875rem; margin-bottom: 0.75rem;">
+                  A simple and effective workflow for classroom projects:
+                </p>
+                <ol style="color: var(--muted); font-size: 0.875rem; padding-left: 1.5rem;">
+                  <li style="margin-bottom: 0.5rem;">Create a new branch for each feature or bug fix</li>
+                  <li style="margin-bottom: 0.5rem;">Do all work related to that feature in the branch</li>
+                  <li style="margin-bottom: 0.5rem;">When complete, merge the branch back to main</li>
+                  <li>Delete the feature branch after merging</li>
+                </ol>
+              </div>
+              
+              <div class="student-tip">
+                <div class="tip-header">
+                  <i class="ri-user-line" style="color: var(--warning);"></i>
+                  Student Tip
+                </div>
+                <p style="font-size: 0.875rem; color: var(--foreground);">
+                  Always make sure you're on the right branch before starting work. Check the branch name in VSCode's status bar at the bottom of the window.
+                </p>
+              </div>
+            </div>
+            
+            <div style="background-color: var(--surface); padding: 1rem 1.5rem; border-top: 1px solid var(--border);">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <span style="font-size: 0.875rem; font-weight: 500; color: var(--muted);">Completion Status:</span>
+                  <span style="margin-left: 0.5rem; font-size: 0.875rem; font-weight: 500; color: var(--success);">
+                    In Progress
+                  </span>
+                </div>
+                <div style="display: flex; gap: 0.75rem;">
+                  <a href="quizzes.html" style="padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500; color: var(--foreground); background-color: var(--background);">
+                    Take Quiz
+                  </a>
+                  <a href="merge-conflicts.html" style="padding: 0.5rem 1rem; border: 1px solid transparent; border-radius: 0.375rem; font-size: 0.875rem; font-weight: 500; color: white; background-color: var(--primary);">
+                    Next Module
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">
+            Branching Best Practices for Classroom Projects
+          </h3>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div style="background-color: var(--background); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.5rem;">
+              <h4 style="font-weight: 600; margin-bottom: 0.75rem; color: var(--foreground);">
+                Naming Conventions
+              </h4>
+              <p style="font-size: 0.875rem; color: var(--muted); margin-bottom: 1rem;">
+                Establish clear branch naming conventions to keep projects organized:
+              </p>
+              <ul style="font-size: 0.875rem; color: var(--muted); padding-left: 1.5rem;">
+                <li style="margin-bottom: 0.5rem;"><strong>feature/</strong> - For new features (e.g., feature/login-page)</li>
+                <li style="margin-bottom: 0.5rem;"><strong>bugfix/</strong> - For bug fixes (e.g., bugfix/navigation-error)</li>
+                <li style="margin-bottom: 0.5rem;"><strong>hotfix/</strong> - For urgent fixes (e.g., hotfix/security-issue)</li>
+                <li><strong>username/</strong> - For personal branches (e.g., jane/experiment)</li>
+              </ul>
+            </div>
+            
+            <div style="background-color: var(--background); border: 1px solid var(--border); border-radius: 0.5rem; padding: 1.5rem;">
+              <h4 style="font-weight: 600; margin-bottom: 0.75rem; color: var(--foreground);">
+                Classroom Management
+              </h4>
+              <p style="font-size: 0.875rem; color: var(--muted); margin-bottom: 1rem;">
+                Tips for managing student repositories:
+              </p>
+              <ul style="font-size: 0.875rem; color: var(--muted); padding-left: 1.5rem;">
+                <li style="margin-bottom: 0.5rem;">Protect the main branch to prevent direct commits</li>
+                <li style="margin-bottom: 0.5rem;">Require students to work in their own branches</li>
+                <li style="margin-bottom: 0.5rem;">Use pull requests for code review before merging</li>
+                <li>Create staging branches for testing integrations</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="teacher-tip">
+            <div class="tip-header">
+              <i class="ri-user-star-line" style="color: var(--success);"></i>
+              Assessment Idea
+            </div>
+            <p style="font-size: 0.875rem; color: var(--foreground);">
+              Create a "broken" repository with multiple branches and ask students to identify which branches need to be merged and in what order to create a working application. This tests their understanding of both Git branching and code integration.
+            </p>
+          </div>
+        </section>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <i class="ri-github-fill"></i>
+            <span>Git & GitHub Classroom Companion</span>
+          </div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="git-basics.html">Modules</a>
+            <a href="templates.html">Resources</a>
+            <a href="feedback.html">Feedback</a>
+          </div>
+          <div class="footer-copyright">
+            <p>&copy; 2025 Git & GitHub Classroom Companion. Created for CS Teachers.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+  
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
