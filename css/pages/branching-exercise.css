@@ -1,0 +1,165 @@
+/* Page-specific styles for branching-exercise.html */
+.assignment-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.assignment-header {
+  background: linear-gradient(135deg, #0366d6, #28a745);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.assignment-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.assignment-subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.assignment-content {
+  padding: 2rem;
+}
+
+.assignment-content h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.assignment-content h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.assignment-content h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+}
+
+.assignment-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.assignment-content ul, .assignment-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.assignment-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.assignment-content code {
+  font-family: monospace;
+  background-color: var(--surface);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  color: var(--foreground);
+}
+
+.assignment-content pre {
+  background-color: var(--surface);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+}
+
+.assignment-content pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.assignment-content blockquote {
+  border-left: 4px solid var(--primary);
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.assignment-content a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.assignment-content a:hover {
+  text-decoration: underline;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.action-button:hover {
+  background-color: #0356a8;
+  transform: translateY(-2px);
+}
+
+.action-button i {
+  margin-right: 0.5rem;
+}
+
+.action-button.secondary {
+  background-color: var(--surface);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+
+.action-button.secondary:hover {
+  background-color: var(--muted-background);
+}
+
+.emoji {
+  font-style: normal;
+  font-weight: normal;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
