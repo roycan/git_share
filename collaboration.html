@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Collaboration | Git & GitHub Classroom Companion</title>
+  <meta name="description" content="Learn how to teach GitHub collaboration features including pull requests, issues, and team workflows in your CS classroom.">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="GitHub Collaboration | Git & GitHub Classroom Companion">
+  <meta property="og:description" content="Learn how to teach GitHub collaboration features including pull requests, issues, and team workflows in your CS classroom.">
+  <meta property="og:type" content="website">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Page specific styles -->
+  <style>
+    .collaboration-workflow {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+    
+    .workflow-header {
+      background: linear-gradient(135deg, #0366d6, #28a745);
+      color: white;
+      padding: 1rem 1.5rem;
+      text-align: center;
+    }
+    
+    .workflow-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .workflow-subtitle {
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+    
+    .workflow-steps {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    
+    .workflow-step {
+      position: relative;
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .workflow-step::after {
+      content: "→";
+      position: absolute;
+      right: -1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    
+    .workflow-step:last-child::after {
+      display: none;
+    }
+    
+    .step-icon {
+      width: 3rem;
+      height: 3rem;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.75rem;
+      font-size: 1.25rem;
+    }
+    
+    .step-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--foreground);
+    }
+    
+    .step-description {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+    
+    .github-simulator {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      margin: 1.5rem 0;
+    }
+    
+    .github-header {
+      background-color: #24292e;
+      color: white;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .github-title {
+      display: flex;
+      align-items: center;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .github-title i {
+      margin-right: 0.5rem;
+    }
+    
+    .github-content {
+      background-color: var(--background);
+      padding: 1rem;
+    }
+    
+    .pr-card, .issue-card {
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background-color: var(--surface);
+    }
+    
+    .pr-header, .issue-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    
+    .pr-status, .issue-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-right: 0.75rem;
+    }
+    
+    .pr-status.open {
+      background-color: rgba(40, 167, 69, 0.2);
+      color: var(--success);
+    }
+    
+    .pr-status.merged {
+      background-color: rgba(111, 66, 193, 0.2);
+      color: #6f42c1;
+    }
+    
+    .issue-status.open {
+      background-color: rgba(40, 167, 69, 0.2);
+      color: var(--success);
+    }
+    
+    .issue-status.closed {
+      background-color: rgba(108, 117, 125, 0.2);
+      color: var(--muted);
+    }
+    
+    .pr-title, .issue-title {
+      font-weight: 600;
+      color: var(--foreground);
+      font-size: 0.875rem;
+    }
+    
+    .pr-meta, .issue-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    
+    .pr-actions, .issue-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    
+    .action-btn {
+      padding: 0.25rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+      background-color: var(--background);
+      color: var(--foreground);
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    
+    .action-btn i {
+      margin-right: 0.25rem;
+    }
+    
+    .action-btn:hover {
+      background-color: var(--surface);
+    }
+    
+    .action-btn.primary {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .action-btn.primary:hover {
+      background-color: #0553c3;
+    }
+    
+    .teacher-tip, .student-tip, .classroom-activity {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .teacher-tip {
+      background-color: rgba(3, 102, 214, 0.1);
+      border-left: 4px solid var(--primary);
+    }
+    
+    .student-tip {
+      background-color: rgba(227, 160, 8, 0.1);
+      border-left: 4px solid var(--warning);
+    }
+    
+    .classroom-activity {
+      background-color: rgba(147, 51, 234, 0.1);
+      border-left: 4px solid #9333ea;
+    }
+    
+    .tip-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--foreground);
+    }
+    
+    .tip-header i {
+      margin-right: 0.5rem;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    
+    .feature-card {
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      background-color: var(--background);
+    }
+    
+    .feature-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+      font-size: 1.125rem;
+    }
+    
+    .feature-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--foreground);
+    }
+    
+    .feature-description {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    
+    .feature-classroom-use {
+      font-size: 0.75rem;
+      color: var(--foreground);
+      background-color: var(--surface);
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      border-left: 3px solid var(--success);
+    }
+    
+    .demo-container {
+      background-color: var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    
+    .demo-button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin: 0.5rem;
+      transition: all 0.2s;
+    }
+    
+    .demo-button:hover {
+      background-color: #0553c3;
+      transform: translateY(-1px);
+    }
+    
+    .demo-button.success {
+      background-color: var(--success);
+    }
+    
+    .demo-button.success:hover {
+      background-color: #059669;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .collaborative-scenario {
+      background: linear-gradient(135deg, rgba(3, 102, 214, 0.1), rgba(40, 167, 69, 0.1));
+      border: 1px solid rgba(3, 102, 214, 0.3);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .scenario-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .scenario-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .scenario-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--foreground);
+      margin-bottom: 0.5rem;
+    }
+    
+    .scenario-subtitle {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+    
+    .scenario-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    
+    .scenario-step {
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+    
+    .scenario-step-number {
+      background-color: var(--primary);
+      color: white;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    
+    .scenario-step-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--foreground);
+      margin-bottom: 0.5rem;
+    }
+    
+    .scenario-step-description {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    
+    .best-practices {
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .best-practices h4 {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      color: var(--foreground);
+      font-weight: 600;
+    }
+    
+    .best-practices h4 i {
+      margin-right: 0.5rem;
+      color: var(--success);
+    }
+    
+    .practice-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 0.75rem;
+    }
+    
+    .practice-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 0.5rem;
+      background-color: var(--surface);
+      border-radius: 0.25rem;
+    }
+    
+    .practice-item i {
+      color: var(--success);
+      margin-right: 0.5rem;
+      margin-top: 0.125rem;
+      flex-shrink: 0;
+    }
+    
+    .practice-text {
+      font-size: 0.875rem;
+      color: var(--foreground);
+    }
+    
+    @media (max-width: 768px) {
+      .workflow-steps {
+        grid-template-columns: 1fr;
+      }
+      
+      .workflow-step::after {
+        content: "↓";
+        right: 50%;
+        transform: translateX(50%);
+        top: 100%;
+        margin-top: 0.5rem;
+      }
+      
+      .workflow-step:last-child::after {
+        display: none;
+      }
+    }
+  </style>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body class="light-mode">
+  <div class="layout-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="ri-github-fill"></i>
+          <span>Git Classroom</span>
+        </div>
+        <button class="close-menu" id="close-menu">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      
+      <div class="user-profile">
+        <div class="avatar">
+          <span>T</span>
+        </div>
+        <div class="user-info">
+          <span class="user-name">CS Teacher</span>
+          <span class="user-role">Workshop Participant</span>
+        </div>
+      </div>
+      
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>Your Progress</span>
+          <span class="progress-percentage">100%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 100%"></div>
+        </div>
+        <div class="progress-stats">
+          <div class="stat">
+            <span class="stat-value">4/4</span>
+            <span class="stat-label">Modules</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">4/5</span>
+            <span class="stat-label">Badges</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">92%</span>
+            <span class="stat-label">Quiz Score</span>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="index.html">
+              <i class="ri-home-line"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="git-basics.html">
+              <i class="ri-git-repository-line"></i>
+              <span>Git Basics</span>
+            </a>
+          </li>
+          <li>
+            <a href="branching.html">
+              <i class="ri-git-branch-line"></i>
+              <span>Branching</span>
+            </a>
+          </li>
+          <li>
+            <a href="merge-conflicts.html">
+              <i class="ri-error-warning-line"></i>
+              <span>Merge Conflicts</span>
+            </a>
+          </li>
+          <li>
+            <a href="collaboration.html" class="active">
+              <i class="ri-team-line"></i>
+              <span>Collaboration</span>
+            </a>
+          </li>
+          <li>
+            <a href="vscode.html">
+              <i class="ri-terminal-line"></i>
+              <span>VS Code</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="templates.html">
+              <i class="ri-file-copy-line"></i>
+              <span>Templates</span>
+            </a>
+          </li>
+          <li>
+            <a href="templates.html#guides">
+              <i class="ri-book-open-line"></i>
+              <span>Student Guides</span>
+            </a>
+          </li>
+          <li>
+            <a href="quizzes.html">
+              <i class="ri-question-line"></i>
+              <span>Quizzes</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="feedback.html">
+              <i class="ri-chat-1-line"></i>
+              <span>Feedback</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="theme-toggle">
+        <span>Theme</span>
+        <div class="toggle-switch">
+          <input type="checkbox" id="theme-toggle-checkbox">
+          <label for="theme-toggle-checkbox" class="toggle-label">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navigation Bar -->
+      <nav class="top-nav">
+        <div class="menu-toggle" id="menu-toggle">
+          <i class="ri-menu-line"></i>
+        </div>
+        <div class="page-title">
+          <h1>GitHub Collaboration</h1>
+        </div>
+        <div class="nav-actions">
+          <button class="theme-btn" id="mobile-theme-toggle">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+          </button>
+          <a href="https://github.com/topics/github-classroom" target="_blank" class="github-link">
+            <i class="ri-github-fill"></i>
+          </a>
+        </div>
+      </nav>
+      
+      <!-- Collaboration Content -->
+      <div class="content-container">
+        <section class="module-section">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="section-title">
+              <i class="ri-team-line" style="color: #28a745; margin-right: 0.5rem;"></i>
+              GitHub Collaboration & Teamwork
+            </h2>
+            <div style="display: flex; align-items: center;">
+              <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background-color: rgba(46, 164, 79, 0.2); color: var(--success); margin-right: 0.5rem;">
+                <i class="ri-team-fill" style="margin-right: 0.25rem;"></i> 
+                Advanced
+              </span>
+              <span style="font-size: 0.875rem; color: var(--muted);">Module 4 of 4</span>
+            </div>
+          </div>
+          
+          <div style="background-color: var(--background); border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; margin-bottom: 1.5rem;">
+            <div style="padding: 1.5rem;">
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                GitHub collaboration tools transform coding from a solo activity into an engaging team sport! Learn how to use 
+                pull requests, issues, and project boards to create authentic collaborative experiences that mirror real-world 
+                software development while keeping it fun and accessible for middle school students.
+              </p>
+              
+              <!-- Collaborative Scenario -->
+              <div class="collaborative-scenario">
+                <div class="scenario-header">
+                  <div class="scenario-icon">🚀</div>
+                  <div class="scenario-title">Real-World Collaboration Scenario</div>
+                  <div class="scenario-subtitle">Building a Class Website Together</div>
+                </div>
+                
+                <div class="scenario-steps">
+                  <div class="scenario-step">
+                    <div class="scenario-step-number">1</div>
+                    <div class="scenario-step-title">Project Planning</div>
+                    <div class="scenario-step-description">
+                      Teacher creates issues for each page needed: Home, About, Projects, Contact
+                    </div>
+                  </div>
+                  
+                  <div class="scenario-step">
+                    <div class="scenario-step-number">2</div>
+                    <div class="scenario-step-title">Team Assignment</div>
+                    <div class="scenario-step-description">
+                      Students choose or are assigned specific pages to work on
+                    </div>
+                  </div>
+                  
+                  <div class="scenario-step">
+                    <div class="scenario-step-number">3</div>
+                    <div class="scenario-step-title">Feature Development</div>
+                    <div class="scenario-step-description">
+                      Each student creates a branch and builds their assigned page
+                    </div>
+                  </div>
+                  
+                  <div class="scenario-step">
+                    <div class="scenario-step-number">4</div>
+                    <div class="scenario-step-title">Code Review</div>
+                    <div class="scenario-step-description">
+                      Students submit pull requests and review each other's work
+                    </div>
+                  </div>
+                  
+                  <div class="scenario-step">
+                    <div class="scenario-step-number">5</div>
+                    <div class="scenario-step-title">Integration</div>
+                    <div class="scenario-step-description">
+                      Approved changes are merged to create the final website
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="teacher-tip">
+                <div class="tip-header">
+                  <i class="ri-user-star-line" style="color: var(--primary);"></i>
+                  Teaching Philosophy
+                </div>
+                <p style="font-size: 0.875rem; color: var(--foreground);">
+                  Frame collaboration as "being part of a software development team" rather than just "group work." 
+                  Students love feeling like professional developers! Use terminology like "feature requests," "code review," 
+                  and "product owner" to make the experience feel authentic and engaging.
+                </p>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">Essential Collaboration Features</h3>
+              
+              <div class="feature-grid">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="ri-git-pull-request-line"></i>
+                  </div>
+                  <div class="feature-title">Pull Requests</div>
+                  <div class="feature-description">
+                    Propose changes, discuss improvements, and merge code safely with team review.
+                  </div>
+                  <div class="feature-classroom-use">
+                    <strong>Classroom Use:</strong> Peer code review, teacher feedback, and gradual integration of student work.
+                  </div>
+                </div>
+                
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="ri-error-warning-line"></i>
+                  </div>
+                  <div class="feature-title">Issues & Tasks</div>
+                  <div class="feature-description">
+                    Track bugs, request features, and organize project tasks with clear assignments.
+                  </div>
+                  <div class="feature-classroom-use">
+                    <strong>Classroom Use:</strong> Assignment distribution, student help requests, and project planning.
+                  </div>
+                </div>
+                
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="ri-kanban-view"></i>
+                  </div>
+                  <div class="feature-title">Project Boards</div>
+                  <div class="feature-description">
+                    Visualize workflow with Kanban-style boards showing task progress and status.
+                  </div>
+                  <div class="feature-classroom-use">
+                    <strong>Classroom Use:</strong> Track individual progress, show project status, and manage deadlines.
+                  </div>
+                </div>
+                
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="ri-shield-check-line"></i>
+                  </div>
+                  <div class="feature-title">Branch Protection</div>
+                  <div class="feature-description">
+                    Protect main branch from direct pushes, requiring reviews before merging.
+                  </div>
+                  <div class="feature-classroom-use">
+                    <strong>Classroom Use:</strong> Ensure teacher review, prevent accidental overwrites, maintain code quality.
+                  </div>
+                </div>
+                
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="ri-discuss-line"></i>
+                  </div>
+                  <div class="feature-title">Discussions</div>
+                  <div class="feature-description">
+                    Create forums for general questions, ideas, and team communication.
+                  </div>
+                  <div class="feature-classroom-use">
+                    <strong>Classroom Use:</strong> Q&A sessions, brainstorming, and community building within projects.
+                  </div>
+                </div>
+                
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="ri-notification-line"></i>
+                  </div>
+                  <div class="feature-title">Notifications</div>
+                  <div class="feature-description">
+                    Stay updated on mentions, pull requests, and issue activity across projects.
+                  </div>
+                  <div class="feature-classroom-use">
+                    <strong>Classroom Use:</strong> Keep students engaged, notify of feedback, and track participation.
+                  </div>
+                </div>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">The GitHub Collaboration Workflow</h3>
+              
+              <div class="collaboration-workflow">
+                <div class="workflow-header">
+                  <div class="workflow-title">From Issue to Merge: Complete Collaboration Flow</div>
+                  <div class="workflow-subtitle">How teams work together on GitHub</div>
+                </div>
+                
+                <div class="workflow-steps">
+                  <div class="workflow-step">
+                    <div class="step-icon">
+                      <i class="ri-error-warning-line"></i>
+                    </div>
+                    <div class="step-title">Create Issue</div>
+                    <div class="step-description">
+                      Identify a task, bug, or feature request
+                    </div>
+                  </div>
+                  
+                  <div class="workflow-step">
+                    <div class="step-icon">
+                      <i class="ri-git-branch-line"></i>
+                    </div>
+                    <div class="step-title">Create Branch</div>
+                    <div class="step-description">
+                      Start work in a dedicated feature branch
+                    </div>
+                  </div>
+                  
+                  <div class="workflow-step">
+                    <div class="step-icon">
+                      <i class="ri-code-line"></i>
+                    </div>
+                    <div class="step-title">Write Code</div>
+                    <div class="step-description">
+                      Develop the feature or fix the issue
+                    </div>
+                  </div>
+                  
+                  <div class="workflow-step">
+                    <div class="step-icon">
+                      <i class="ri-git-pull-request-line"></i>
+                    </div>
+                    <div class="step-title">Pull Request</div>
+                    <div class="step-description">
+                      Submit work for team review and feedback
+                    </div>
+                  </div>
+                  
+                  <div class="workflow-step">
+                    <div class="step-icon">
+                      <i class="ri-eye-line"></i>
+                    </div>
+                    <div class="step-title">Code Review</div>
+                    <div class="step-description">
+                      Team members review and suggest improvements
+                    </div>
+                  </div>
+                  
+                  <div class="workflow-step">
+                    <div class="step-icon">
+                      <i class="ri-git-merge-line"></i>
+                    </div>
+                    <div class="step-title">Merge</div>
+                    <div class="step-description">
+                      Approved changes join the main codebase
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">Interactive GitHub Interface Tour</h3>
+              
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                Let's explore what your students will see when working with GitHub's collaboration features:
+              </p>
+              
+              <!-- GitHub Interface Simulator -->
+              <div class="github-simulator">
+                <div class="github-header">
+                  <div class="github-title">
+                    <i class="ri-github-fill"></i>
+                    classroom-website-project
+                  </div>
+                  <div style="display: flex; gap: 0.5rem; font-size: 0.75rem;">
+                    <span style="opacity: 0.8;">⭐ 15</span>
+                    <span style="opacity: 0.8;">🍴 3</span>
+                    <span style="opacity: 0.8;">👁️ 8</span>
+                  </div>
+                </div>
+                
+                <div class="github-content">
+                  <div style="margin-bottom: 1rem;">
+                    <h4 style="display: flex; align-items: center; margin-bottom: 0.75rem; color: var(--foreground);">
+                      <i class="ri-git-pull-request-line" style="margin-right: 0.5rem; color: var(--primary);"></i>
+                      Pull Requests
+                    </h4>
+                    
+                    <div class="pr-card">
+                      <div class="pr-header">
+                        <span class="pr-status open">Open</span>
+                        <span class="pr-title">Add responsive navigation menu</span>
+                      </div>
+                      <div class="pr-meta">
+                        #12 opened 2 hours ago by alex_student • 
+                        <span style="color: var(--success);">+25</span> 
+                        <span style="color: var(--error);">-3</span> changes
+                      </div>
+                      <div class="pr-actions">
+                        <button class="action-btn">
+                          <i class="ri-eye-line"></i>
+                          Review
+                        </button>
+                        <button class="action-btn">
+                          <i class="ri-chat-3-line"></i>
+                          Comment
+                        </button>
+                        <button class="action-btn primary">
+                          <i class="ri-git-merge-line"></i>
+                          Merge
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div class="pr-card">
+                      <div class="pr-header">
+                        <span class="pr-status merged">Merged</span>
+                        <span class="pr-title">Fix footer alignment on mobile devices</span>
+                      </div>
+                      <div class="pr-meta">
+                        #11 merged yesterday by sarah_student • 
+                        <span style="color: var(--success);">+8</span> 
+                        <span style="color: var(--error);">-2</span> changes
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 style="display: flex; align-items: center; margin-bottom: 0.75rem; color: var(--foreground);">
+                      <i class="ri-error-warning-line" style="margin-right: 0.5rem; color: var(--success);"></i>
+                      Issues & Tasks
+                    </h4>
+                    
+                    <div class="issue-card">
+                      <div class="issue-header">
+                        <span class="issue-status open">Open</span>
+                        <span class="issue-title">Add dark mode toggle feature</span>
+                      </div>
+                      <div class="issue-meta">
+                        #15 opened 1 day ago by ms_teacher • assigned to jamie_student
+                      </div>
+                      <div class="issue-actions">
+                        <button class="action-btn">
+                          <i class="ri-user-line"></i>
+                          Assign
+                        </button>
+                        <button class="action-btn">
+                          <i class="ri-price-tag-3-line"></i>
+                          Label
+                        </button>
+                        <button class="action-btn">
+                          <i class="ri-chat-3-line"></i>
+                          Comment
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div class="issue-card">
+                      <div class="issue-header">
+                        <span class="issue-status closed">Closed</span>
+                        <span class="issue-title">Logo appears blurry on high-resolution screens</span>
+                      </div>
+                      <div class="issue-meta">
+                        #13 closed 3 days ago by taylor_student
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="classroom-activity">
+                <div class="tip-header">
+                  <i class="ri-group-line" style="color: #9333ea;"></i>
+                  Classroom Activity: "GitHub Olympics"
+                </div>
+                <h4 style="margin-bottom: 0.75rem;">🏆 Collaborative Coding Challenge</h4>
+                <p style="font-size: 0.875rem; color: var(--foreground); margin-bottom: 0.75rem;">
+                  Turn GitHub collaboration into a fun team competition:
+                </p>
+                <ul style="font-size: 0.875rem; color: var(--muted); margin-left: 1.5rem; margin-bottom: 0.75rem;">
+                  <li><strong>Team Formation:</strong> Groups of 3-4 students work on different "event" websites (Sports, Music, Science Fair)</li>
+                  <li><strong>Collaboration Points:</strong> Earn points for PR reviews, helpful issue comments, and successful merges</li>
+                  <li><strong>Quality Medals:</strong> Award bronze/silver/gold for code quality, creativity, and teamwork</li>
+                  <li><strong>Peer Recognition:</strong> Students vote for "Most Helpful Reviewer" and "Best Team Player"</li>
+                </ul>
+                <div style="background-color: rgba(147, 51, 234, 0.1); padding: 0.75rem; border-radius: 0.25rem; font-size: 0.875rem;">
+                  <strong>💡 Pro Tip:</strong> Create a live leaderboard showing collaboration stats - it motivates students to engage more with reviews and discussions!
+                </div>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">Teaching Pull Requests Step-by-Step</h3>
+              
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                Pull requests are the heart of GitHub collaboration. Here's how to introduce them to your students:
+              </p>
+              
+              <div class="demo-container">
+                <h4 style="margin-bottom: 1rem; color: var(--foreground);">🎯 Interactive PR Demo</h4>
+                <p style="color: var(--muted); margin-bottom: 1rem;">
+                  Show students the pull request process step by step:
+                </p>
+                
+                <button class="demo-button" onclick="showPRStep('create')">1. Create PR</button>
+                <button class="demo-button" onclick="showPRStep('review')">2. Code Review</button>
+                <button class="demo-button success" onclick="showPRStep('merge')">3. Merge</button>
+                
+                <div id="pr-step-create" class="best-practices hidden" style="margin-top: 1rem;">
+                  <h4><i class="ri-add-line"></i> Creating a Pull Request</h4>
+                  <div class="practice-list">
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Write a clear title describing what was changed</div>
+                    </div>
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Add description explaining why the change was needed</div>
+                    </div>
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Link to related issues using #issue-number</div>
+                    </div>
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Request specific reviewers (teacher or classmates)</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div id="pr-step-review" class="best-practices hidden" style="margin-top: 1rem;">
+                  <h4><i class="ri-eye-line"></i> Code Review Process</h4>
+                  <div class="practice-list">
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Read the code changes carefully and understand the purpose</div>
+                    </div>
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Leave constructive comments on specific lines if needed</div>
+                    </div>
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Test the changes if possible (especially for visual changes)</div>
+                    </div>
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Approve with positive feedback or request changes politely</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div id="pr-step-merge" class="best-practices hidden" style="margin-top: 1rem;">
+                  <h4><i class="ri-git-merge-line"></i> Merging Successfully</h4>
+                  <div class="practice-list">
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Ensure all reviewers have approved the changes</div>
+                    </div>
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Check that all tests and checks have passed</div>
+                    </div>
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Choose appropriate merge strategy (usually "Squash and merge")</div>
+                    </div>
+                    <div class="practice-item">
+                      <i class="ri-checkbox-circle-line"></i>
+                      <div class="practice-text">Delete the feature branch after successful merge</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="student-tip">
+                <div class="tip-header">
+                  <i class="ri-lightbulb-line" style="color: var(--warning);"></i>
+                  Student Success Tips
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Writing Great Pull Request Descriptions</h4>
+                <p style="font-size: 0.875rem; color: var(--foreground); margin-bottom: 0.75rem;">
+                  Teach students to use this simple template:
+                </p>
+                <div style="background-color: var(--surface); padding: 0.75rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.75rem; margin-bottom: 0.75rem;">
+                  <strong>What I Changed:</strong> Added a contact form to the Contact page<br>
+                  <strong>Why I Changed It:</strong> Fixes issue #8 - visitors can now send messages<br>
+                  <strong>How to Test:</strong> Go to /contact.html and try submitting the form<br>
+                  <strong>Screenshots:</strong> [Before/after images if applicable]
+                </div>
+                <p style="font-size: 0.875rem; color: var(--muted);">
+                  This template helps students think through their changes and makes reviews much easier!
+                </p>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">Collaboration Best Practices</h3>
+              
+              <div class="best-practices">
+                <h4><i class="ri-star-line"></i> Classroom Collaboration Guidelines</h4>
+                <div class="practice-list">
+                  <div class="practice-item">
+                    <i class="ri-check-line"></i>
+                    <div class="practice-text">Use clear, descriptive commit messages that explain what and why</div>
+                  </div>
+                  <div class="practice-item">
+                    <i class="ri-check-line"></i>
+                    <div class="practice-text">Keep pull requests small and focused on one feature or fix</div>
+                  </div>
+                  <div class="practice-item">
+                    <i class="ri-check-line"></i>
+                    <div class="practice-text">Be kind and constructive in code reviews - focus on the code, not the person</div>
+                  </div>
+                  <div class="practice-item">
+                    <i class="ri-check-line"></i>
+                    <div class="practice-text">Respond to review feedback promptly and ask questions if confused</div>
+                  </div>
+                  <div class="practice-item">
+                    <i class="ri-check-line"></i>
+                    <div class="practice-text">Use @mentions to get specific people's attention in comments</div>
+                  </div>
+                  <div class="practice-item">
+                    <i class="ri-check-line"></i>
+                    <div class="practice-text">Link related issues and pull requests using # references</div>
+                  </div>
+                  <div class="practice-item">
+                    <i class="ri-check-line"></i>
+                    <div class="practice-text">Test your changes before submitting a pull request</div>
+                  </div>
+                  <div class="practice-item">
+                    <i class="ri-check-line"></i>
+                    <div class="practice-text">Celebrate successful merges and acknowledge good teamwork!</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="teacher-tip">
+                <div class="tip-header">
+                  <i class="ri-user-star-line" style="color: var(--primary);"></i>
+                  Assessment & Grading
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Evaluating Collaboration Skills</h4>
+                <p style="font-size: 0.875rem; color: var(--foreground); margin-bottom: 0.75rem;">
+                  GitHub provides excellent data for assessing student collaboration:
+                </p>
+                <ul style="font-size: 0.875rem; color: var(--muted); margin-left: 1.5rem; margin-bottom: 0.75rem;">
+                  <li><strong>Contribution graphs:</strong> Show consistency and engagement over time</li>
+                  <li><strong>Pull request quality:</strong> Evaluate descriptions, code organization, and testing</li>
+                  <li><strong>Review participation:</strong> Track how students give and receive feedback</li>
+                  <li><strong>Issue management:</strong> See how well students plan and organize work</li>
+                  <li><strong>Communication:</strong> Assess clarity and helpfulness in comments and discussions</li>
+                </ul>
+                <div style="background-color: rgba(3, 102, 214, 0.1); padding: 0.75rem; border-radius: 0.25rem; font-size: 0.875rem;">
+                  <strong>💡 Grading Tip:</strong> Consider collaboration as separate from coding ability. Some students excel at organizing, others at reviewing, others at helping teammates. Recognize all forms of valuable contribution!
+                </div>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">Troubleshooting Common Issues</h3>
+              
+              <div class="feature-grid">
+                <div class="feature-card">
+                  <div class="feature-icon" style="background-color: var(--warning);">
+                    <i class="ri-error-warning-line"></i>
+                  </div>
+                  <div class="feature-title">Merge Conflicts in PRs</div>
+                  <div class="feature-description">
+                    When multiple students edit the same files, conflicts can appear in pull requests.
+                  </div>
+                  <div class="feature-classroom-use">
+                    <strong>Solution:</strong> Teach students to pull latest changes before creating PRs, and pair students to resolve conflicts together.
+                  </div>
+                </div>
+                
+                <div class="feature-card">
+                  <div class="feature-icon" style="background-color: var(--warning);">
+                    <i class="ri-forbid-line"></i>
+                  </div>
+                  <div class="feature-title">Accidental Direct Pushes</div>
+                  <div class="feature-description">
+                    Students might push directly to main branch instead of creating pull requests.
+                  </div>
+                  <div class="feature-classroom-use">
+                    <strong>Solution:</strong> Enable branch protection rules requiring pull requests for the main branch.
+                  </div>
+                </div>
+                
+                <div class="feature-card">
+                  <div class="feature-icon" style="background-color: var(--warning);">
+                    <i class="ri-chat-delete-line"></i>
+                  </div>
+                  <div class="feature-title">Harsh Code Reviews</div>
+                  <div class="feature-description">
+                    Students might be too critical or not constructive in their feedback.
+                  </div>
+                  <div class="feature-classroom-use">
+                    <strong>Solution:</strong> Provide review templates and model positive feedback. Practice with sample code first.
+                  </div>
+                </div>
+              </div>
+              
+              <div class="classroom-activity">
+                <div class="tip-header">
+                  <i class="ri-lightbulb-line" style="color: #9333ea;"></i>
+                  Advanced Collaboration Ideas
+                </div>
+                <h4 style="margin-bottom: 0.75rem;">🌟 Level Up Your Classroom Collaboration</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                  <div style="background-color: var(--surface); padding: 1rem; border-radius: 0.5rem;">
+                    <h5 style="font-weight: 600; margin-bottom: 0.5rem; color: var(--foreground);">📊 Project Dashboards</h5>
+                    <p style="font-size: 0.875rem; color: var(--muted);">Use GitHub Projects to create Kanban boards showing each student's progress through "To Do," "In Progress," and "Done" columns.</p>
+                  </div>
+                  <div style="background-color: var(--surface); padding: 1rem; border-radius: 0.5rem;">
+                    <h5 style="font-weight: 600; margin-bottom: 0.5rem; color: var(--foreground);">🎭 Role Playing</h5>
+                    <p style="font-size: 0.875rem; color: var(--muted);">Assign roles like "Product Manager," "Lead Developer," "UI Designer," and "Quality Assurance" to give students different perspectives.</p>
+                  </div>
+                  <div style="background-color: var(--surface); padding: 1rem; border-radius: 0.5rem;">
+                    <h5 style="font-weight: 600; margin-bottom: 0.5rem; color: var(--foreground);">🏷️ Label Systems</h5>
+                    <p style="font-size: 0.875rem; color: var(--muted);">Create labels like "good-first-issue," "help-wanted," "bug," "enhancement" to help students choose appropriate tasks.</p>
+                  </div>
+                  <div style="background-color: var(--surface); padding: 1rem; border-radius: 0.5rem;">
+                    <h5 style="font-weight: 600; margin-bottom: 0.5rem; color: var(--foreground);">🤖 Automation</h5>
+                    <p style="font-size: 0.875rem; color: var(--muted);">Set up simple GitHub Actions to automatically assign reviewers, check code formatting, or deploy websites when PRs are merged.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <i class="ri-github-fill"></i>
+            <span>Git & GitHub Classroom Companion</span>
+          </div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="git-basics.html">Modules</a>
+            <a href="templates.html">Resources</a>
+            <a href="feedback.html">Feedback</a>
+          </div>
+          <div class="footer-copyright">
+            <p>&copy; 2025 Git & GitHub Classroom Companion. Created for CS Teachers.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+  
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+  
+  <!-- Interactive Demo Script -->
+  <script>
+    function showPRStep(step) {
+      // Hide all steps
+      document.getElementById('pr-step-create').classList.add('hidden');
+      document.getElementById('pr-step-review').classList.add('hidden');
+      document.getElementById('pr-step-merge').classList.add('hidden');
+      
+      // Show the selected step
+      document.getElementById('pr-step-' + step).classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
