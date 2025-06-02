@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Git & GitHub Glossary - Git & GitHub Classroom Companion</title>
+  <meta name="description" content="A complete glossary of Git and GitHub terms for CS teachers and students.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body class="light-mode">
+  <div class="layout-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="ri-github-fill"></i>
+          <span>Git Classroom</span>
+        </div>
+        <button class="close-menu" id="close-menu">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      <div class="user-profile">
+        <div class="avatar">
+          <span>T</span>
+        </div>
+        <div class="user-info">
+          <span class="user-name">CS Teacher</span>
+          <span class="user-role">Workshop Participant</span>
+        </div>
+      </div>
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>Your Progress</span>
+          <span class="progress-percentage">25%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 25%"></div>
+        </div>
+        <div class="progress-stats">
+          <div class="stat">
+            <span class="stat-value">1/4</span>
+            <span class="stat-label">Modules</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">1/5</span>
+            <span class="stat-label">Badges</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">70%</span>
+            <span class="stat-label">Quiz Score</span>
+          </div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="index.html"><i class="ri-home-line"></i><span>Home</span></a></li>
+          <li><a href="git-basics.html"><i class="ri-git-repository-line"></i><span>Git Basics</span></a></li>
+          <li><a href="branching.html"><i class="ri-git-branch-line"></i><span>Branching</span></a></li>
+          <li><a href="merge-conflicts.html"><i class="ri-error-warning-line"></i><span>Merge Conflicts</span></a></li>
+          <li><a href="collaboration.html"><i class="ri-team-line"></i><span>Collaboration</span></a></li>
+          <li><a href="vscode.html"><i class="ri-terminal-line"></i><span>VS Code</span></a></li>
+          <li class="nav-divider"></li>
+          <li><a href="templates.html"><i class="ri-file-copy-line"></i><span>Templates</span></a></li>
+          <li><a href="student-guides.html"><i class="ri-book-open-line"></i><span>Student Guides</span></a></li>
+          <li><a href="quizzes.html"><i class="ri-question-line"></i><span>Quizzes</span></a></li>
+          <li class="nav-divider"></li>
+          <li><a href="feedback.html"><i class="ri-chat-1-line"></i><span>Feedback</span></a></li>
+        </ul>
+      </nav>
+      <div class="theme-toggle">
+        <span>Theme</span>
+        <div class="toggle-switch">
+          <input type="checkbox" id="theme-toggle-checkbox">
+          <label for="theme-toggle-checkbox" class="toggle-label">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
+      </div>
+    </aside>
+    <main class="main-content">
+      <nav class="top-nav">
+        <div class="menu-toggle" id="menu-toggle">
+          <i class="ri-menu-line"></i>
+        </div>
+        <div class="page-title">
+          <h1>Full Git & GitHub Glossary</h1>
+        </div>
+        <div class="nav-actions">
+          <button class="theme-btn" id="mobile-theme-toggle">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+          </button>
+          <a href="https://github.com/topics/github-classroom" target="_blank" class="github-link">
+            <i class="ri-github-fill"></i>
+          </a>
+        </div>
+      </nav>
+      <div class="content-container">
+        <section class="glossary-section">
+          <h2 class="section-title">Git & GitHub Terms Explained</h2>
+          <div class="glossary-container">
+            <div class="glossary-item"><h3>Repository (Repo)</h3><p>A folder where all your project files and their history are stored. Think of it as a project binder that keeps track of every change you make.</p></div>
+            <div class="glossary-item"><h3>Commit</h3><p>Saving a snapshot of your work. Each commit records what changed and lets you go back to that point if needed.</p></div>
+            <div class="glossary-item"><h3>Branch</h3><p>A separate line of work in your project. You can try new ideas on a branch without changing the main project until you’re ready.</p></div>
+            <div class="glossary-item"><h3>Merge</h3><p>Combining changes from one branch into another. This is how you bring everyone’s work together.</p></div>
+            <div class="glossary-item"><h3>Pull Request</h3><p>Asking to add your changes to the main project. Others can review your work before it’s included.</p></div>
+            <div class="glossary-item"><h3>Clone</h3><p>Making a copy of a project from GitHub onto your own computer so you can work on it.</p></div>
+            <div class="glossary-item"><h3>Push</h3><p>Sending your saved changes (commits) from your computer up to GitHub so others can see them.</p></div>
+            <div class="glossary-item"><h3>Pull</h3><p>Getting the latest changes from GitHub onto your computer, so your copy is up to date.</p></div>
+            <div class="glossary-item"><h3>Staging Area (Index)</h3><p>A place where you prepare files before saving them in a commit. Like a waiting room for your changes.</p></div>
+            <div class="glossary-item"><h3>Remote</h3><p>A version of your project that lives on the internet (like on GitHub), so you and your classmates can share work.</p></div>
+            <div class="glossary-item"><h3>Fork</h3><p>Making your own copy of someone else’s project on GitHub, so you can experiment without affecting the original.</p></div>
+            <div class="glossary-item"><h3>Conflict</h3><p>When two people change the same part of a file, Git can’t decide which change to keep. You have to choose how to fix it.</p></div>
+            <div class="glossary-item"><h3>Stash</h3><p>Temporarily putting aside changes you’re not ready to save, so you can work on something else.</p></div>
+            <div class="glossary-item"><h3>Tag</h3><p>A label for a specific point in your project’s history, often used to mark releases or important versions.</p></div>
+            <div class="glossary-item"><h3>Revert</h3><p>Undoing a specific commit, putting your project back to how it was before that change.</p></div>
+            <div class="glossary-item"><h3>Rebase</h3><p>Moving or combining a series of commits to make your project history cleaner. Advanced, but useful for organizing work.</p></div>
+            <div class="glossary-item"><h3>Blame</h3><p>Shows who last changed each line in a file. Helpful for tracking down when and why something changed.</p></div>
+            <div class="glossary-item"><h3>History</h3><p>A list of all the commits made in your project, so you can see what changed and when.</p></div>
+            <div class="glossary-item"><h3>README</h3><p>A file that explains what your project is, how to use it, and any other important info. Usually the first thing people see on GitHub.</p></div>
+            <div class="glossary-item"><h3>Issue</h3><p>A way to track tasks, bugs, or questions about a project. Like a digital to-do list or help desk.</p></div>
+            <div class="glossary-item"><h3>Action</h3><p>Automated tasks that run on GitHub, like checking your code or deploying your project.</p></div>
+            <div class="glossary-item"><h3>License</h3><p>A file that tells others how they can use, share, or change your project.</p></div>
+            <div class="glossary-item"><h3>Sync</h3><p>Making sure your local project and the remote project on GitHub have the same changes.</p></div>
+            <div class="glossary-item"><h3>Cherry-pick</h3><p>Taking a specific commit from one branch and applying it to another branch.</p></div>
+            <div class="glossary-item"><h3>Squash</h3><p>Combining several commits into one. This helps keep your project history tidy.</p></div>
+          </div>
+        </section>
+      </div>
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <i class="ri-github-fill"></i>
+            <span>Git & GitHub Classroom Companion</span>
+          </div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="git-basics.html">Modules</a>
+            <a href="templates.html">Resources</a>
+            <a href="feedback.html">Feedback</a>
+          </div>
+          <div class="footer-copyright">
+            <p>&copy; 2025 Git & GitHub Classroom Companion. Created for CS Teachers.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
