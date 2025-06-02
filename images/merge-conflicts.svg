@@ -1,0 +1,18 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Optional subtle file icon (suggesting a code file) -->
+  <g id="file-icon" opacity="0.3">
+    <!-- File shape with rounded corners -->
+    <rect x="10" y="70" width="30" height="35" rx="3" ry="3" fill="#FFFFFF" stroke="#B0B0B0" stroke-width="1"/>
+    <!-- Small folded-corner detail -->
+    <polygon points="40,70 40,80 30,70" fill="#B0B0B0"/>
+  </g>
+  <!-- Git branch lines -->
+  <g id="branch-lines">
+    <!-- Blue branch -->
+    <line x1="20" y1="20" x2="100" y2="100" stroke="#4A90E2" stroke-width="4" stroke-linecap="round"/>
+    <!-- Purple branch -->
+    <line x1="20" y1="100" x2="100" y2="20" stroke="#9013FE" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- Conflict node at the intersection -->
+  <circle cx="60" cy="60" r="6" fill="#F5A623"/>
+</svg>
