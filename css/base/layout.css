@@ -1,0 +1,55 @@
+/* Layout Containers for Git & GitHub Classroom Companion Website */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+.flex {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.main-content {
+  flex: 1 1 0%;
+  padding: var(--space-lg) 0;
+}
+
+.sidebar {
+  width: 260px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  min-height: 100vh;
+}
+
+.header {
+  width: 100%;
+  padding: var(--space-md) 0;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.footer {
+  width: 100%;
+  padding: var(--space-md) 0;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--muted);
+  font-size: var(--font-size-sm);
+}

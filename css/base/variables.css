@@ -1,0 +1,61 @@
+/* CSS Variables for Git & GitHub Classroom Companion Website */
+:root {
+  /* Colors */
+  --background: #f9fafe;
+  --foreground: #22223b;
+  --primary: #0366d6;
+  --secondary: #e0e7ff;
+  --muted: #6c757d;
+  --border: #e5e7eb;
+  --card-bg: #fff;
+  --sidebar-bg: #f3f4f6;
+  --sidebar-active: #e0e7ff;
+  --success: #22c55e;
+  --warning: #f59e42;
+  --danger: #ef4444;
+  --info: #3b82f6;
+
+  /* Typography */
+  --font-sans: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --font-mono: 'Fira Mono', 'Consolas', monospace;
+  --font-size-base: 16px;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.125rem;
+  --font-weight-normal: 400;
+  --font-weight-bold: 600;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+
+  /* Transitions */
+  --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-theme="dark"] {
+  --background: #181a1b;
+  --foreground: #f3f4f6;
+  --primary: #58a6ff;
+  --secondary: #23272f;
+  --muted: #a1a1aa;
+  --border: #23272f;
+  --card-bg: #23272f;
+  --sidebar-bg: #23272f;
+  --sidebar-active: #1e293b;
+  --success: #22d3ee;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --info: #60a5fa;
+}

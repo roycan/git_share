@@ -1,0 +1,55 @@
+/* Page-Specific Styles for templates.html */
+
+/* Resource Cards Grid (already in cards.css, but can override here if needed) */
+/* .resources-grid { ... } */
+
+/* Templates Page Header */
+.templates-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
+.templates-title {
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--foreground);
+}
+
+.templates-description {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: var(--space-md);
+}
+
+/* Filter Tabs (relies on .tabs/.tab in tabs.css, but can override here) */
+.templates-tabs {
+  margin-bottom: var(--space-lg);
+}
+
+/* Template Card Category Colors (example for different categories) */
+.resource-icon.git {
+  background: #f3f4f6;
+  color: #f14e32;
+}
+.resource-icon.branch {
+  background: #e0e7ff;
+  color: #0366d6;
+}
+.resource-icon.merge {
+  background: #e0ffe0;
+  color: #22c55e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .templates-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+  .resources-grid {
+    grid-template-columns: 1fr;
+  }
+}

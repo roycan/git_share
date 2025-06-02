@@ -1,0 +1,70 @@
+/* Button Styles (download-btn, action-button, etc.) */
+
+.button,
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-md);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow-sm);
+  outline: none;
+  gap: var(--space-xs);
+}
+
+.button:hover,
+.btn:hover,
+.button:focus,
+.btn:focus {
+  background: var(--foreground);
+  color: #fff;
+  box-shadow: var(--shadow-md);
+}
+
+.button.secondary,
+.btn.secondary {
+  background: var(--secondary);
+  color: var(--primary);
+}
+
+.button.secondary:hover,
+.btn.secondary:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.download-btn {
+  background: var(--success);
+  color: #fff;
+}
+
+.download-btn:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.action-button {
+  background: var(--info);
+  color: #fff;
+}
+
+.action-button:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.button[disabled],
+.btn[disabled],
+.button:disabled,
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}

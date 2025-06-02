@@ -1,0 +1,34 @@
+/* Tab Navigation System Styles */
+
+.tabs {
+  display: flex;
+  gap: var(--space-md);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-md);
+}
+
+.tab {
+  padding: var(--space-sm) var(--space-md);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.tab.active,
+.tab[aria-selected="true"] {
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+.tab:hover {
+  color: var(--foreground);
+}
+
+.tab-content {
+  padding: var(--space-md) 0;
+}

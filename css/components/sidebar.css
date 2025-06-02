@@ -1,0 +1,59 @@
+/* Sidebar Navigation Styles */
+
+.sidebar {
+  width: 260px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  min-height: 100vh;
+  padding: var(--space-lg) var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.sidebar .sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--primary);
+  margin-bottom: var(--space-lg);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  color: var(--foreground);
+  font-size: 1rem;
+  transition: background var(--transition), color var(--transition);
+}
+
+.sidebar-nav a.active,
+.sidebar-nav a[aria-current="page"] {
+  background: var(--sidebar-active);
+  color: var(--primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.sidebar-nav a:hover {
+  background: var(--secondary);
+  color: var(--primary);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  font-size: var(--font-size-sm);
+  color: var(--muted);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border);
+}

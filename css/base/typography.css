@@ -1,0 +1,77 @@
+/* Typography Styles for Git & GitHub Classroom Companion Website */
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--foreground);
+  background: var(--background);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-bold);
+  color: var(--foreground);
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+}
+
+h1 { font-size: 2.25rem; margin-top: var(--space-lg); }
+h2 { font-size: 1.5rem; margin-top: var(--space-md); }
+h3 { font-size: 1.25rem; margin-top: var(--space-md); }
+h4 { font-size: 1.125rem; margin-top: var(--space-md); }
+h5 { font-size: 1rem; margin-top: var(--space-sm); }
+h6 { font-size: 0.875rem; margin-top: var(--space-sm); }
+
+p {
+  margin-bottom: var(--space-md);
+  color: var(--muted);
+}
+
+strong, b {
+  font-weight: var(--font-weight-bold);
+}
+
+em, i {
+  font-style: italic;
+}
+
+small {
+  font-size: 0.875em;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+  background: var(--secondary);
+  color: var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 0.2em 0.4em;
+}
+
+pre {
+  padding: var(--space-md);
+  overflow-x: auto;
+}
+
+a {
+  color: var(--primary);
+  transition: color var(--transition);
+}
+
+a:hover, a:focus {
+  color: var(--foreground);
+  text-decoration: underline;
+}
+
+ul, ol {
+  margin-bottom: var(--space-md);
+  padding-left: 2rem;
+}
+
+li {
+  margin-bottom: 0.25em;
+}
