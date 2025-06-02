@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merge Conflicts | Git & GitHub Classroom Companion</title>
+  <meta name="description" content="Learn how to understand, resolve, and teach merge conflicts in Git through hands-on examples and classroom-friendly explanations.">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Merge Conflicts | Git & GitHub Classroom Companion">
+  <meta property="og:description" content="Learn how to understand, resolve, and teach merge conflicts in Git through hands-on examples and classroom-friendly explanations.">
+  <meta property="og:type" content="website">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Page specific styles -->
+  <style>
+    .conflict-simulator {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    
+    .conflict-header {
+      background-color: var(--background);
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: between;
+    }
+    
+    .conflict-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+    }
+    
+    .conflict-title i {
+      margin-right: 0.5rem;
+      color: var(--warning);
+    }
+    
+    .conflict-content {
+      padding: 1rem;
+      background-color: var(--background);
+      font-family: monospace;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    .conflict-marker {
+      background-color: rgba(220, 38, 127, 0.1);
+      border-left: 3px solid #dc267f;
+      padding: 0.25rem 0.5rem;
+      margin: 0.25rem 0;
+    }
+    
+    .current-branch {
+      background-color: rgba(46, 164, 79, 0.1);
+      border-left: 3px solid var(--success);
+      padding: 0.25rem 0.5rem;
+      margin: 0.25rem 0;
+    }
+    
+    .incoming-branch {
+      background-color: rgba(3, 102, 214, 0.1);
+      border-left: 3px solid var(--primary);
+      padding: 0.25rem 0.5rem;
+      margin: 0.25rem 0;
+    }
+    
+    .resolved-content {
+      background-color: rgba(46, 164, 79, 0.1);
+      border: 1px solid var(--success);
+      border-radius: 0.25rem;
+      padding: 0.75rem;
+      margin-top: 1rem;
+    }
+    
+    .teacher-tip, .student-tip, .classroom-activity {
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .teacher-tip {
+      background-color: rgba(3, 102, 214, 0.1);
+      border-left: 4px solid var(--primary);
+    }
+    
+    .student-tip {
+      background-color: rgba(227, 160, 8, 0.1);
+      border-left: 4px solid var(--warning);
+    }
+    
+    .classroom-activity {
+      background-color: rgba(147, 51, 234, 0.1);
+      border-left: 4px solid #9333ea;
+    }
+    
+    .tip-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--foreground);
+    }
+    
+    .tip-header i {
+      margin-right: 0.5rem;
+    }
+    
+    .conflict-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .step-card {
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      position: relative;
+    }
+    
+    .step-number {
+      position: absolute;
+      top: -0.5rem;
+      left: 1rem;
+      background-color: var(--primary);
+      color: white;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .step-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
+      font-weight: 600;
+      color: var(--foreground);
+    }
+    
+    .step-header i {
+      margin-right: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .analogy-box {
+      background: linear-gradient(135deg, rgba(147, 51, 234, 0.1), rgba(3, 102, 214, 0.1));
+      border: 1px solid rgba(147, 51, 234, 0.3);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    
+    .analogy-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #9333ea;
+    }
+    
+    .interactive-demo {
+      background-color: var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+    }
+    
+    .demo-button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin: 0.5rem;
+      transition: all 0.2s;
+    }
+    
+    .demo-button:hover {
+      background-color: #0553c3;
+      transform: translateY(-1px);
+    }
+    
+    .demo-button.danger {
+      background-color: var(--warning);
+    }
+    
+    .demo-button.danger:hover {
+      background-color: #dc2626;
+    }
+    
+    .demo-button.success {
+      background-color: var(--success);
+    }
+    
+    .demo-button.success:hover {
+      background-color: #059669;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .assessment-checklist {
+      background-color: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      transition: background-color 0.2s;
+    }
+    
+    .checklist-item:hover {
+      background-color: rgba(3, 102, 214, 0.05);
+    }
+    
+    .checklist-item input[type="checkbox"] {
+      margin-right: 0.75rem;
+      transform: scale(1.2);
+    }
+    
+    .git-commands {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.375rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+    }
+    
+    .git-commands p {
+      margin-bottom: 0.5rem;
+    }
+    
+    .difficulty-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-left: 0.5rem;
+    }
+    
+    .difficulty-intermediate {
+      background-color: rgba(227, 160, 8, 0.2);
+      color: var(--warning);
+    }
+  </style>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+</head>
+<body class="light-mode">
+  <div class="layout-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="ri-github-fill"></i>
+          <span>Git Classroom</span>
+        </div>
+        <button class="close-menu" id="close-menu">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      
+      <div class="user-profile">
+        <div class="avatar">
+          <span>T</span>
+        </div>
+        <div class="user-info">
+          <span class="user-name">CS Teacher</span>
+          <span class="user-role">Workshop Participant</span>
+        </div>
+      </div>
+      
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>Your Progress</span>
+          <span class="progress-percentage">75%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 75%"></div>
+        </div>
+        <div class="progress-stats">
+          <div class="stat">
+            <span class="stat-value">3/4</span>
+            <span class="stat-label">Modules</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">3/5</span>
+            <span class="stat-label">Badges</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">85%</span>
+            <span class="stat-label">Quiz Score</span>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="index.html">
+              <i class="ri-home-line"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="git-basics.html">
+              <i class="ri-git-repository-line"></i>
+              <span>Git Basics</span>
+            </a>
+          </li>
+          <li>
+            <a href="branching.html">
+              <i class="ri-git-branch-line"></i>
+              <span>Branching</span>
+            </a>
+          </li>
+          <li>
+            <a href="merge-conflicts.html" class="active">
+              <i class="ri-error-warning-line"></i>
+              <span>Merge Conflicts</span>
+            </a>
+          </li>
+          <li>
+            <a href="collaboration.html">
+              <i class="ri-team-line"></i>
+              <span>Collaboration</span>
+            </a>
+          </li>
+          <li>
+            <a href="vscode.html">
+              <i class="ri-terminal-line"></i>
+              <span>VS Code</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="templates.html">
+              <i class="ri-file-copy-line"></i>
+              <span>Templates</span>
+            </a>
+          </li>
+          <li>
+            <a href="templates.html#guides">
+              <i class="ri-book-open-line"></i>
+              <span>Student Guides</span>
+            </a>
+          </li>
+          <li>
+            <a href="quizzes.html">
+              <i class="ri-question-line"></i>
+              <span>Quizzes</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="feedback.html">
+              <i class="ri-chat-1-line"></i>
+              <span>Feedback</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="theme-toggle">
+        <span>Theme</span>
+        <div class="toggle-switch">
+          <input type="checkbox" id="theme-toggle-checkbox">
+          <label for="theme-toggle-checkbox" class="toggle-label">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navigation Bar -->
+      <nav class="top-nav">
+        <div class="menu-toggle" id="menu-toggle">
+          <i class="ri-menu-line"></i>
+        </div>
+        <div class="page-title">
+          <h1>Merge Conflicts</h1>
+        </div>
+        <div class="nav-actions">
+          <button class="theme-btn" id="mobile-theme-toggle">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+          </button>
+          <a href="https://github.com/topics/github-classroom" target="_blank" class="github-link">
+            <i class="ri-github-fill"></i>
+          </a>
+        </div>
+      </nav>
+      
+      <!-- Merge Conflicts Content -->
+      <div class="content-container">
+        <section class="module-section">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="section-title">
+              <i class="ri-error-warning-line" style="color: #f59e0b; margin-right: 0.5rem;"></i>
+              Understanding Merge Conflicts
+              <span class="difficulty-badge difficulty-intermediate">
+                <i class="ri-bar-chart-line" style="margin-right: 0.25rem;"></i>
+                Intermediate
+              </span>
+            </h2>
+            <div style="display: flex; align-items: center;">
+              <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background-color: rgba(46, 164, 79, 0.2); color: var(--success); margin-right: 0.5rem;">
+                <i class="ri-checkbox-circle-fill" style="margin-right: 0.25rem;"></i> 
+                Ready to Learn
+              </span>
+              <span style="font-size: 0.875rem; color: var(--muted);">Module 3 of 4</span>
+            </div>
+          </div>
+          
+          <div style="background-color: var(--background); border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; margin-bottom: 1.5rem;">
+            <div style="padding: 1.5rem;">
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                Merge conflicts occur when Git can't automatically combine changes from different branches. While they might seem scary at first, 
+                they're actually Git's way of being careful and asking for your help to make important decisions about your code.
+              </p>
+              
+              <!-- Fun Analogy Box -->
+              <div class="analogy-box">
+                <div class="analogy-icon">🤝</div>
+                <h3 style="margin-bottom: 0.5rem; color: var(--foreground);">Think of it like group projects!</h3>
+                <p style="color: var(--muted); font-size: 0.9rem;">
+                  Imagine two students editing the same paragraph of a report at the same time. When they try to combine their work, 
+                  they need to sit down together and decide which changes to keep, which to modify, and how to blend their ideas. 
+                  That's exactly what happens with merge conflicts in Git!
+                </p>
+              </div>
+              
+              <div class="teacher-tip">
+                <div class="tip-header">
+                  <i class="ri-user-star-line" style="color: var(--primary);"></i>
+                  Teaching Strategy
+                </div>
+                <p style="font-size: 0.875rem; color: var(--foreground);">
+                  Frame merge conflicts as collaboration opportunities, not errors. When students encounter them, celebrate! 
+                  It means multiple people are contributing to the project. Use the analogy of editors working on a newspaper - 
+                  sometimes they need to discuss and merge their articles thoughtfully.
+                </p>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">When Do Merge Conflicts Happen?</h3>
+              
+              <div class="conflict-steps">
+                <div class="step-card">
+                  <div class="step-number">1</div>
+                  <div class="step-header">
+                    <i class="ri-git-branch-line"></i>
+                    Different Branches
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Two people work on different branches and modify the same lines in the same file.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">2</div>
+                  <div class="step-header">
+                    <i class="ri-git-merge-line"></i>
+                    Merge Attempt
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    When trying to merge the branches, Git finds conflicting changes and doesn't know which version to keep.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">3</div>
+                  <div class="step-header">
+                    <i class="ri-pause-circle-line"></i>
+                    Git Pauses
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Git stops the merge process and marks the conflicting areas in your files for manual resolution.
+                  </p>
+                </div>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">What Does a Merge Conflict Look Like?</h3>
+              
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                When Git encounters a conflict, it marks the conflicting sections in your file with special symbols. Here's what you'll see:
+              </p>
+              
+              <!-- Conflict Simulator -->
+              <div class="conflict-simulator">
+                <div class="conflict-header">
+                  <div class="conflict-title">
+                    <i class="ri-error-warning-line"></i>
+                    index.html - Merge Conflict
+                  </div>
+                </div>
+                <div class="conflict-content">
+                  <div><!DOCTYPE html></div>
+                  <div>&lt;html lang="en"&gt;</div>
+                  <div>&lt;head&gt;</div>
+                  <div>&nbsp;&nbsp;&lt;title&gt;My Awesome Website&lt;/title&gt;</div>
+                  <div>&lt;/head&gt;</div>
+                  <div>&lt;body&gt;</div>
+                  <div class="conflict-marker">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</div>
+                  <div class="current-branch">&nbsp;&nbsp;&lt;h1&gt;Welcome to Our Class Project!&lt;/h1&gt;</div>
+                  <div class="current-branch">&nbsp;&nbsp;&lt;p&gt;This is our amazing 7th grade website.&lt;/p&gt;</div>
+                  <div class="conflict-marker">=======</div>
+                  <div class="incoming-branch">&nbsp;&nbsp;&lt;h1&gt;Class Project Hub&lt;/h1&gt;</div>
+                  <div class="incoming-branch">&nbsp;&nbsp;&lt;p&gt;Welcome to our collaborative coding space!&lt;/p&gt;</div>
+                  <div class="conflict-marker">&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/new-header</div>
+                  <div>&lt;/body&gt;</div>
+                  <div>&lt;/html&gt;</div>
+                </div>
+              </div>
+              
+              <div class="student-tip">
+                <div class="tip-header">
+                  <i class="ri-lightbulb-line" style="color: var(--warning);"></i>
+                  Student Tip
+                </div>
+                <p style="font-size: 0.875rem; color: var(--foreground);">
+                  <strong>Reading the conflict markers:</strong><br>
+                  • <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> marks the start of your current branch's version<br>
+                  • <code>=======</code> separates the two versions<br>
+                  • <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; branch-name</code> marks the end of the incoming branch's version
+                </p>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">Resolving Conflicts Step-by-Step</h3>
+              
+              <div class="conflict-steps">
+                <div class="step-card">
+                  <div class="step-number">1</div>
+                  <div class="step-header">
+                    <i class="ri-search-line"></i>
+                    Find the Conflicts
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Look for files marked with conflict indicators in your VS Code or Git interface. They'll be highlighted in red or with warning symbols.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">2</div>
+                  <div class="step-header">
+                    <i class="ri-edit-line"></i>
+                    Edit the File
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Open the conflicted file and decide what the final version should look like. You can keep one version, combine both, or write something completely new.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">3</div>
+                  <div class="step-header">
+                    <i class="ri-delete-bin-line"></i>
+                    Remove Markers
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Delete all the conflict markers (&lt;&lt;&lt;&lt;&lt;&lt;&lt;, =======, &gt;&gt;&gt;&gt;&gt;&gt;&gt;) from your file. Leave only the final content you want.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">4</div>
+                  <div class="step-header">
+                    <i class="ri-add-line"></i>
+                    Stage Changes
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Add the resolved file to staging. This tells Git that you've fixed the conflict and the file is ready to commit.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">5</div>
+                  <div class="step-header">
+                    <i class="ri-git-commit-line"></i>
+                    Commit the Resolution
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Commit your changes with a message like "Resolve merge conflict in index.html" to complete the merge.
+                  </p>
+                </div>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">Interactive Resolution Example</h3>
+              
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                Let's practice resolving the conflict we saw above. Click through the steps to see how we can combine the best of both versions:
+              </p>
+              
+              <!-- Interactive Demo -->
+              <div class="interactive-demo">
+                <h4 style="margin-bottom: 1rem; color: var(--foreground);">🎯 Resolution Challenge</h4>
+                <p style="color: var(--muted); margin-bottom: 1rem;">How should we resolve the header conflict? We can:</p>
+                
+                <button class="demo-button" onclick="showResolution('keep-current')">Keep Current Version</button>
+                <button class="demo-button" onclick="showResolution('keep-incoming')">Keep Incoming Version</button>
+                <button class="demo-button success" onclick="showResolution('combine')">Combine Both Ideas</button>
+                
+                <div id="resolution-current" class="resolved-content hidden">
+                  <h4 style="margin-bottom: 0.5rem;">✅ Keeping Current Version:</h4>
+                  <div style="font-family: monospace; font-size: 0.875rem;">
+                    &lt;h1&gt;Welcome to Our Class Project!&lt;/h1&gt;<br>
+                    &lt;p&gt;This is our amazing 7th grade website.&lt;/p&gt;
+                  </div>
+                  <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--muted);">
+                    Simple choice - keeps the original content intact.
+                  </p>
+                </div>
+                
+                <div id="resolution-incoming" class="resolved-content hidden">
+                  <h4 style="margin-bottom: 0.5rem;">✅ Keeping Incoming Version:</h4>
+                  <div style="font-family: monospace; font-size: 0.875rem;">
+                    &lt;h1&gt;Class Project Hub&lt;/h1&gt;<br>
+                    &lt;p&gt;Welcome to our collaborative coding space!&lt;/p&gt;
+                  </div>
+                  <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--muted);">
+                    Takes the new version completely - good for major improvements.
+                  </p>
+                </div>
+                
+                <div id="resolution-combine" class="resolved-content hidden">
+                  <h4 style="margin-bottom: 0.5rem;">🌟 Best Solution - Combining Both Ideas:</h4>
+                  <div style="font-family: monospace; font-size: 0.875rem;">
+                    &lt;h1&gt;Welcome to Our Class Project Hub!&lt;/h1&gt;<br>
+                    &lt;p&gt;This is our amazing 7th grade collaborative coding space!&lt;/p&gt;
+                  </div>
+                  <p style="margin-top: 0.5rem; font-size: 0.875rem; color: var(--muted);">
+                    <strong>Perfect!</strong> This solution takes the warm "Welcome" from the first version and the descriptive "Project Hub" from the second, creating something even better than either original.
+                  </p>
+                </div>
+              </div>
+              
+              <div class="classroom-activity">
+                <div class="tip-header">
+                  <i class="ri-group-line" style="color: #9333ea;"></i>
+                  Classroom Activity Idea
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">📝 "Conflict Resolution Workshop"</h4>
+                <p style="font-size: 0.875rem; color: var(--foreground); margin-bottom: 0.75rem;">
+                  Create intentional merge conflicts for students to practice with:
+                </p>
+                <ul style="font-size: 0.875rem; color: var(--muted); margin-left: 1.5rem;">
+                  <li>Give pairs different versions of a simple HTML file to modify</li>
+                  <li>Have them merge their changes and resolve conflicts together</li>
+                  <li>Discuss which resolution strategies work best and why</li>
+                  <li>Award "Collaboration Champion" badges for creative conflict solutions!</li>
+                </ul>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">VS Code Merge Conflict Tools</h3>
+              
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                VS Code has built-in tools that make resolving merge conflicts much easier than editing the raw conflict markers. Here's what students will see:
+              </p>
+              
+              <div class="conflict-steps">
+                <div class="step-card">
+                  <div class="step-number">🔍</div>
+                  <div class="step-header">
+                    <i class="ri-search-line"></i>
+                    Conflict Detection
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    VS Code automatically highlights conflicted files in the explorer and shows conflict decorations in the editor.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">⚡</div>
+                  <div class="step-header">
+                    <i class="ri-cursor-line"></i>
+                    Quick Actions
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Click "Accept Current Change", "Accept Incoming Change", or "Accept Both Changes" buttons that appear above conflicts.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">🎨</div>
+                  <div class="step-header">
+                    <i class="ri-palette-line"></i>
+                    Color Coding
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Different colors highlight current changes (green), incoming changes (blue), and the conflict area (red).
+                  </p>
+                </div>
+              </div>
+              
+              <div class="teacher-tip">
+                <div class="tip-header">
+                  <i class="ri-user-star-line" style="color: var(--primary);"></i>
+                  Assessment Opportunity
+                </div>
+                <h4 style="margin-bottom: 0.5rem;">Conflict Resolution Checklist</h4>
+                <div class="assessment-checklist">
+                  <div class="checklist-item">
+                    <input type="checkbox" id="check1">
+                    <label for="check1">Student can identify when a merge conflict occurs</label>
+                  </div>
+                  <div class="checklist-item">
+                    <input type="checkbox" id="check2">
+                    <label for="check2">Student understands the conflict marker symbols</label>
+                  </div>
+                  <div class="checklist-item">
+                    <input type="checkbox" id="check3">
+                    <label for="check3">Student can read and interpret conflicted code</label>
+                  </div>
+                  <div class="checklist-item">
+                    <input type="checkbox" id="check4">
+                    <label for="check4">Student chooses appropriate resolution strategy</label>
+                  </div>
+                  <div class="checklist-item">
+                    <input type="checkbox" id="check5">
+                    <label for="check5">Student removes all conflict markers correctly</label>
+                  </div>
+                  <div class="checklist-item">
+                    <input type="checkbox" id="check6">
+                    <label for="check6">Student commits the resolution with clear message</label>
+                  </div>
+                </div>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">Prevention Strategies</h3>
+              
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                While conflicts are normal, here are some strategies to minimize them and make collaboration smoother:
+              </p>
+              
+              <div class="conflict-steps">
+                <div class="step-card">
+                  <div class="step-number">📋</div>
+                  <div class="step-header">
+                    <i class="ri-file-list-line"></i>
+                    Plan File Ownership
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Assign different files or sections to different students. Create a "Who's Working on What" document.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">🔄</div>
+                  <div class="step-header">
+                    <i class="ri-refresh-line"></i>
+                    Frequent Pulls
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Encourage students to pull changes frequently to stay up-to-date with their teammates' work.
+                  </p>
+                </div>
+                
+                <div class="step-card">
+                  <div class="step-number">💬</div>
+                  <div class="step-header">
+                    <i class="ri-chat-3-line"></i>
+                    Communication
+                  </div>
+                  <p style="font-size: 0.875rem; color: var(--muted);">
+                    Use clear commit messages and communicate about major changes before making them.
+                  </p>
+                </div>
+              </div>
+              
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 1rem; color: var(--foreground);">
+                Command Line Equivalents
+              </h3>
+              
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                For advanced students or troubleshooting, here are the command line tools for handling merge conflicts:
+              </p>
+              
+              <div class="git-commands">
+                <p><strong>Check conflict status:</strong> git status</p>
+                <p><strong>See conflicted files:</strong> git diff --name-only --diff-filter=U</p>
+                <p><strong>Abort merge (start over):</strong> git merge --abort</p>
+                <p><strong>After resolving conflicts:</strong> git add [filename]</p>
+                <p><strong>Complete the merge:</strong> git commit</p>
+                <p><strong>Use merge tool:</strong> git mergetool</p>
+              </div>
+              
+              <div class="student-tip">
+                <div class="tip-header">
+                  <i class="ri-lightbulb-line" style="color: var(--warning);"></i>
+                  Pro Student Tip
+                </div>
+                <p style="font-size: 0.875rem; color: var(--foreground);">
+                  Don't panic when you see a merge conflict! Take a deep breath, read the conflict carefully, and think about what the final result should look like. 
+                  You can always ask for help or use <code>git merge --abort</code> to start over if you get stuck.
+                </p>
+              </div>
+              
+              <div class="teacher-tip">
+                <div class="tip-header">
+                  <i class="ri-user-star-line" style="color: var(--primary);"></i>
+                  Building Confidence
+                </div>
+                <p style="font-size: 0.875rem; color: var(--foreground);">
+                  Create a "safe space" for conflicts in your classroom. Set up practice repositories where students can experiment with creating and resolving conflicts without fear of breaking important code. 
+                  Celebrate successful conflict resolutions as team achievements! Consider having students work in pairs initially, so they can support each other through the process.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <i class="ri-github-fill"></i>
+            <span>Git & GitHub Classroom Companion</span>
+          </div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="git-basics.html">Modules</a>
+            <a href="templates.html">Resources</a>
+            <a href="feedback.html">Feedback</a>
+          </div>
+          <div class="footer-copyright">
+            <p>&copy; 2025 Git & GitHub Classroom Companion. Created for CS Teachers.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+  
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+  
+  <!-- Interactive Demo Script -->
+  <script>
+    function showResolution(type) {
+      // Hide all resolution boxes
+      document.getElementById('resolution-current').classList.add('hidden');
+      document.getElementById('resolution-incoming').classList.add('hidden');
+      document.getElementById('resolution-combine').classList.add('hidden');
+      
+      // Show the selected resolution
+      document.getElementById('resolution-' + type).classList.remove('hidden');
+    }
+    
+    // Add some interactive behavior to checkboxes
+    document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        const item = this.closest('.checklist-item');
+        if (this.checked) {
+          item.style.backgroundColor = 'rgba(46, 164, 79, 0.1)';
+          item.style.borderLeft = '3px solid var(--success)';
+        } else {
+          item.style.backgroundColor = '';
+          item.style.borderLeft = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
