@@ -35,15 +35,14 @@ Make each HTML file shorter and easier to read by moving its `<style>` blocks in
 - [x] branching.html
 - [x] collaboration.html
 - [x] feedback.html
-- [-] git-basics.html
-- [ ] glossary.html
-- [ ] index.html
-- [ ] intro-to-git.html
-- [ ] merge-conflicts.html
-- [ ] quizzes.html
-- [ ] student-guides.html
-- [ ] templates.html
-- [ ] vscode.html
+- [x] git-basics.html
+- [-] full-glossary.html
+- [-] index.html
+- [x] intro-to-git.html
+- [x] merge-conflicts.html
+- [x] quizzes.html
+- [x] templates.html
+- [x] vscode.html
 
 ## Example
 For `templates.html`:

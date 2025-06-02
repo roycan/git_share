@@ -1,0 +1,420 @@
+<!-- filepath: c:\Users\Lenovo\OneDrive\Documentos\Git_projects\git_share\intro-to-git.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intro to Git Assignment | Git & GitHub Classroom Companion</title>
+  <meta name="description" content="A beginner-friendly assignment that guides students through their first Git operations: cloning, staging, committing, and pushing changes.">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Intro to Git Assignment | Git & GitHub Classroom Companion">
+  <meta property="og:description" content="A beginner-friendly assignment that guides students through their first Git operations: cloning, staging, committing, and pushing changes.">
+  <meta property="og:type" content="website">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages/intro-to-git.css">
+  
+  <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body class="light-mode">
+  <div class="layout-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="ri-github-fill"></i>
+          <span>Git Classroom</span>
+        </div>
+        <button class="close-menu" id="close-menu">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      
+      <div class="user-profile">
+        <div class="avatar">
+          <span>T</span>
+        </div>
+        <div class="user-info">
+          <span class="user-name">CS Teacher</span>
+          <span class="user-role">Workshop Participant</span>
+        </div>
+      </div>
+      
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>Your Progress</span>
+          <span class="progress-percentage">50%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 50%"></div>
+        </div>
+        <div class="progress-stats">
+          <div class="stat">
+            <span class="stat-value">2/4</span>
+            <span class="stat-label">Modules</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">2/5</span>
+            <span class="stat-label">Badges</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">75%</span>
+            <span class="stat-label">Quiz Score</span>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="index.html">
+              <i class="ri-home-line"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="git-basics.html">
+              <i class="ri-git-repository-line"></i>
+              <span>Git Basics</span>
+            </a>
+          </li>
+          <li>
+            <a href="branching.html">
+              <i class="ri-git-branch-line"></i>
+              <span>Branching</span>
+            </a>
+          </li>
+          <li>
+            <a href="merge-conflicts.html">
+              <i class="ri-error-warning-line"></i>
+              <span>Merge Conflicts</span>
+            </a>
+          </li>
+          <li>
+            <a href="collaboration.html">
+              <i class="ri-team-line"></i>
+              <span>Collaboration</span>
+            </a>
+          </li>
+          <li>
+            <a href="vscode.html">
+              <i class="ri-terminal-line"></i>
+              <span>VS Code</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="templates.html" class="active">
+              <i class="ri-file-copy-line"></i>
+              <span>Templates</span>
+            </a>
+          </li>
+          <li>
+            <a href="templates.html#guides">
+              <i class="ri-book-open-line"></i>
+              <span>Student Guides</span>
+            </a>
+          </li>
+          <li>
+            <a href="quizzes.html">
+              <i class="ri-question-line"></i>
+              <span>Quizzes</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="feedback.html">
+              <i class="ri-chat-1-line"></i>
+              <span>Feedback</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="theme-toggle">
+        <span>Theme</span>
+        <div class="toggle-switch">
+          <input type="checkbox" id="theme-toggle-checkbox">
+          <label for="theme-toggle-checkbox" class="toggle-label">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navigation Bar -->
+      <nav class="top-nav">
+        <div class="menu-toggle" id="menu-toggle">
+          <i class="ri-menu-line"></i>
+        </div>
+        <div class="page-title">
+          <h1>Intro to Git Assignment</h1>
+        </div>
+        <div class="nav-actions">
+          <button class="theme-btn" id="mobile-theme-toggle">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+          </button>
+          <a href="https://github.com/topics/github-classroom" target="_blank" class="github-link">
+            <i class="ri-github-fill"></i>
+          </a>
+        </div>
+      </nav>
+      
+      <!-- Assignment Content -->
+      <div class="content-container">
+        <div class="assignment-container">
+          <div class="assignment-header">
+            <div class="assignment-title">Intro to Git Assignment</div>
+            <div class="assignment-subtitle">A beginner-friendly guide to Git fundamentals</div>
+          </div>
+          
+          <div class="assignment-content">
+            <h1>My First Git Adventure: Clone, Stage, Commit, Push! 🚀</h1>
+
+            <p><strong>Objective:</strong> This assignment will walk you through your very first Git operations. By the end, you'll know how to copy a project (clone), prepare your changes (stage), save your changes (commit), and send your changes to a remote repository (push).</p>
+            
+            <p><strong>Estimated Time:</strong> 30-45 minutes</p>
+            
+            <p><strong>Prerequisites:</strong></p>
+            <ol>
+              <li><strong>Git Installed:</strong>
+                <ul>
+                  <li>If you haven't installed Git, download it from <a href="https://git-scm.com/" target="_blank">git-scm.com</a> and follow the installation instructions for your operating system (Windows, macOS, or Linux).</li>
+                </ul>
+              </li>
+              <li><strong>A GitHub Account:</strong>
+                <ul>
+                  <li>If you don't have one, sign up for a free account at <a href="https://github.com" target="_blank">github.com</a>. (Alternatively, GitLab or Bitbucket accounts work similarly, but this guide will use GitHub for examples).</li>
+                </ul>
+              </li>
+              <li><strong>A Repository to Work With:</strong>
+                <ul>
+                  <li>Your instructor might provide a repository URL.</li>
+                  <li><strong>For practice:</strong> You can create your own new, empty repository on GitHub.
+                    <ul>
+                      <li>Go to GitHub.</li>
+                      <li>Click the "+" icon in the top right corner and select "New repository."</li>
+                      <li>Give it a name (e.g., <code>my-first-git-adventure</code>).</li>
+                      <li>You can leave it public.</li>
+                      <li><strong>Important:</strong> Check the box "Add a README file." This will make it easier to clone.</li>
+                      <li>Click "Create repository."</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 1: Clone the Repository 🐑➡️💻</h2>
+            
+            <p>"Cloning" means making a local copy of a remote repository (the one on GitHub) onto your computer so you can work on it.</p>
+            
+            <ol>
+              <li><strong>Get the Repository URL:</strong>
+                <ul>
+                  <li>Navigate to the GitHub repository page you want to clone (either the one provided or the one you just created).</li>
+                  <li>Click the green "&lt;&gt; Code" button.</li>
+                  <li>Ensure "HTTPS" is selected (it usually is by default).</li>
+                  <li>Copy the URL. It will look something like <code>https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git</code>.</li>
+                </ul>
+              </li>
+              <li><strong>Open Your Terminal (or Git Bash on Windows):</strong>
+                <ul>
+                  <li><strong>Windows:</strong> Search for "Git Bash" and open it.</li>
+                  <li><strong>macOS/Linux:</strong> Open your "Terminal" application.</li>
+                </ul>
+              </li>
+              <li><strong>Navigate to Your Desired Directory:</strong>
+                <p>Use the <code>cd</code> (change directory) command to go to a folder where you want to store your projects. For example, if you have a <code>Projects</code> folder on your Desktop:</p>
+                <pre><code>cd Desktop/Projects</code></pre>
+                <p><em>(Create this folder if it doesn't exist using your file explorer or <code>mkdir Projects</code> in the terminal before <code>cd</code>ing into it.)</em></p>
+              </li>
+              <li><strong>Clone it!</strong>
+                <p>Type the <code>git clone</code> command followed by the URL you copied. Press Enter.</p>
+                <pre><code>git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git</code></pre>
+                <p><em>(Replace <code>https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git</code> with the actual URL).</em></p>
+                <p>You should see some output indicating the cloning process.</p>
+              </li>
+              <li><strong>Navigate into Your New Project Directory:</strong>
+                <p>Once cloning is complete, a new folder with the repository's name will be created. Change into this new directory:</p>
+                <pre><code>cd YOUR_REPOSITORY_NAME</code></pre>
+                <p><em>(Replace <code>YOUR_REPOSITORY_NAME</code> with the actual folder name).</em></p>
+                <p>You are now inside your local Git repository!</p>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 2: Make Some Changes ✍️</h2>
+            
+            <p>Let's modify the <code>README.md</code> file or create a new file.</p>
+            
+            <ol>
+              <li><strong>Option A: Modify <code>README.md</code> (if it exists)</strong>
+                <ul>
+                  <li>Open the <code>README.md</code> file in a text editor (like VS Code, Notepad, TextEdit, etc.).</li>
+                  <li>Add a new line of text, for example:
+                    <pre><code>This is my first local change to this project!
+Learning Git is fun.</code></pre>
+                  </li>
+                  <li>Save the file.</li>
+                </ul>
+              </li>
+              <li><strong>Option B: Create a New File</strong>
+                <ul>
+                  <li>If you prefer, create a new text file in your project folder. Let's call it <code>notes.txt</code>.</li>
+                  <li>Open <code>notes.txt</code> and add some text:
+                    <pre><code>My Git Journey:
+- Cloned the repository.
+- Now I'm making my first edit!</code></pre>
+                  </li>
+                  <li>Save the file.</li>
+                </ul>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 3: Stage Your Changes 🎬</h2>
+            
+            <p>"Staging" tells Git which of your changes you want to include in your next "commit" (snapshot). It's like putting items in a box before you seal it.</p>
+            
+            <ol>
+              <li><strong>Check the Status:</strong>
+                <p>In your terminal (make sure you're still in the project directory), type:</p>
+                <pre><code>git status</code></pre>
+                <ul>
+                  <li>If you modified <code>README.md</code>, you'll see it listed under "Changes not staged for commit" (and it might say "modified: README.md").</li>
+                  <li>If you created <code>notes.txt</code>, you'll see it listed under "Untracked files."</li>
+                </ul>
+              </li>
+              <li><strong>Stage the File(s):</strong>
+                <p>To stage your changes, use the <code>git add</code> command followed by the filename.</p>
+                <ul>
+                  <li>If you modified <code>README.md</code>:
+                    <pre><code>git add README.md</code></pre>
+                  </li>
+                  <li>If you created <code>notes.txt</code>:
+                    <pre><code>git add notes.txt</code></pre>
+                  </li>
+                  <li><em>Pro Tip: If you have multiple files changed and want to stage all of them, you can use <code>git add .</code> (the dot means "everything in the current directory and subdirectories").</em></li>
+                </ul>
+              </li>
+              <li><strong>Check the Status Again:</strong>
+                <pre><code>git status</code></pre>
+                <p>Now, the file(s) you added should be listed under "Changes to be committed."</p>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 4: Commit Your Changes 💾</h2>
+            
+            <p>"Committing" is like taking a snapshot of your staged changes and saving it to the project's history. Each commit has a unique ID and requires a descriptive message.</p>
+            
+            <ol>
+              <li><strong>Commit the Staged Changes:</strong>
+                <p>Use the <code>git commit</code> command with the <code>-m</code> flag (which stands for "message") followed by your commit message in quotes:</p>
+                <pre><code>git commit -m "Add my first thoughts to notes.txt"</code></pre>
+                <p>Or, if you edited the README:</p>
+                <pre><code>git commit -m "Update README with initial learning notes"</code></pre>
+                <p><em>Good Commit Messages are important! They should be concise and explain *what* changes you made and ideally *why*. For example: "Fix typo in introduction" or "Add feature: User login functionality".</em></p>
+              </li>
+              <li><strong>Check the Status (Optional but good practice):</strong>
+                <pre><code>git status</code></pre>
+                <p>It should now say something like "nothing to commit, working tree clean" (if all changes were committed) or show that your branch is ahead of <code>origin/main</code> (or <code>origin/master</code>).</p>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Step 5: Push Your Changes to the Remote Repository 📤☁️</h2>
+            
+            <p>"Pushing" sends your committed changes from your local computer back up to the remote repository on GitHub. This makes your changes visible to others (if it's a shared repository) or backs them up online.</p>
+            
+            <ol>
+              <li><strong>Push Your Commits:</strong>
+                <p>The command is usually:</p>
+                <pre><code>git push</code></pre>
+                <ul>
+                  <li><strong>Important Note:</strong> The very first time you push from a newly cloned repository to a branch that doesn't yet exist remotely in the same way, or if your local branch isn't yet tracking the remote branch, Git might give you a more specific command. It often looks like this:
+                    <pre><code>git push --set-upstream origin main</code></pre>
+                    <p>(Replace <code>main</code> with <code>master</code> if your default branch is named <code>master</code>). Git is usually helpful and will suggest the exact command you need to run. Just copy and paste it.</p>
+                  </li>
+                  <li>You might be asked for your GitHub username and password (or a personal access token, which is more secure and common now).</li>
+                </ul>
+              </li>
+              <li><strong>Verify on the Remote Repository:</strong>
+                <ul>
+                  <li>Go back to your repository page on GitHub in your web browser.</li>
+                  <li>Refresh the page.</li>
+                  <li>You should see your new file (<code>notes.txt</code>) or the changes to <code>README.md</code>.</li>
+                  <li>You should also see your commit message listed in the commit history!</li>
+                </ul>
+              </li>
+            </ol>
+            
+            <hr>
+            
+            <h2>Congratulations! 🎉</h2>
+            
+            <p>You've successfully:</p>
+            <ul>
+              <li>✅ Cloned a repository</li>
+              <li>✅ Made local changes</li>
+              <li>✅ Staged those changes</li>
+              <li>✅ Committed them with a message</li>
+              <li>✅ Pushed them to GitHub</li>
+            </ul>
+            
+            <p>These are the fundamental Git operations you'll use countless times as a developer. Keep practicing, and don't be afraid to use <code>git status</code> often to see what's going on!</p>
+            
+            <div class="action-buttons">
+              <a href="docs/intro_to_git.md" download class="action-button">
+                <i class="ri-download-line"></i>
+                Download Markdown
+              </a>
+              <a href="templates.html" class="action-button secondary">
+                <i class="ri-arrow-left-line"></i>
+                Back to Resources
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <i class="ri-github-fill"></i>
+            <span>Git & GitHub Classroom Companion</span>
+          </div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="git-basics.html">Modules</a>
+            <a href="templates.html">Resources</a>
+            <a href="feedback.html">Feedback</a>
+          </div>
+          <div class="footer-copyright">
+            <p>&copy; 2025 Git & GitHub Classroom Companion. Created for CS Teachers.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+  
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>

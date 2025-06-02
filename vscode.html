@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VS Code & Git | Git & GitHub Classroom Companion</title>
+  <meta name="description" content="Learn how VS Code makes Git and GitHub easy and accessible for grade 7-8 students with its visual interface and integrated tools.">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="VS Code & Git | Git & GitHub Classroom Companion">
+  <meta property="og:description" content="Learn how VS Code makes Git and GitHub easy and accessible for grade 7-8 students with its visual interface and integrated tools.">
+  <meta property="og:type" content="website">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/pages/vscode.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body class="light-mode">
+  <div class="layout-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="ri-github-fill"></i>
+          <span>Git Classroom</span>
+        </div>
+        <button class="close-menu" id="close-menu">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      
+      <div class="user-profile">
+        <div class="avatar">
+          <span>T</span>
+        </div>
+        <div class="user-info">
+          <span class="user-name">CS Teacher</span>
+          <span class="user-role">Workshop Participant</span>
+        </div>
+      </div>
+      
+      <div class="progress-section">
+        <div class="progress-header">
+          <span>Your Progress</span>
+          <span class="progress-percentage">100%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 100%"></div>
+        </div>
+        <div class="progress-stats">
+          <div class="stat">
+            <span class="stat-value">5/5</span>
+            <span class="stat-label">Modules</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">5/5</span>
+            <span class="stat-label">Badges</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">95%</span>
+            <span class="stat-label">Quiz Score</span>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="index.html">
+              <i class="ri-home-line"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="git-basics.html">
+              <i class="ri-git-repository-line"></i>
+              <span>Git Basics</span>
+            </a>
+          </li>
+          <li>
+            <a href="branching.html">
+              <i class="ri-git-branch-line"></i>
+              <span>Branching</span>
+            </a>
+          </li>
+          <li>
+            <a href="merge-conflicts.html">
+              <i class="ri-error-warning-line"></i>
+              <span>Merge Conflicts</span>
+            </a>
+          </li>
+          <li>
+            <a href="collaboration.html">
+              <i class="ri-team-line"></i>
+              <span>Collaboration</span>
+            </a>
+          </li>
+          <li>
+            <a href="vscode.html" class="active">
+              <i class="ri-terminal-line"></i>
+              <span>VS Code</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="templates.html">
+              <i class="ri-file-copy-line"></i>
+              <span>Templates</span>
+            </a>
+          </li>
+          <li>
+            <a href="templates.html#guides">
+              <i class="ri-book-open-line"></i>
+              <span>Student Guides</span>
+            </a>
+          </li>
+          <li>
+            <a href="quizzes.html">
+              <i class="ri-question-line"></i>
+              <span>Quizzes</span>
+            </a>
+          </li>
+          <li class="nav-divider"></li>
+          <li>
+            <a href="feedback.html">
+              <i class="ri-chat-1-line"></i>
+              <span>Feedback</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="theme-toggle">
+        <span>Theme</span>
+        <div class="toggle-switch">
+          <input type="checkbox" id="theme-toggle-checkbox">
+          <label for="theme-toggle-checkbox" class="toggle-label">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navigation Bar -->
+      <nav class="top-nav">
+        <div class="menu-toggle" id="menu-toggle">
+          <i class="ri-menu-line"></i>
+        </div>
+        <div class="page-title">
+          <h1>VS Code & Git</h1>
+        </div>
+        <div class="nav-actions">
+          <button class="theme-btn" id="mobile-theme-toggle">
+            <i class="ri-sun-line light-icon"></i>
+            <i class="ri-moon-line dark-icon"></i>
+          </button>
+          <a href="https://github.com/topics/github-classroom" target="_blank" class="github-link">
+            <i class="ri-github-fill"></i>
+          </a>
+        </div>
+      </nav>      <!-- VS Code Content -->
+      <div class="content-container">
+        <section class="module-section">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+            <h2 class="section-title">
+              <i class="ri-terminal-line" style="color: #007ACC; margin-right: 0.5rem;"></i>
+              VS Code Makes Git & GitHub Simple!
+            </h2>
+            <div style="display: flex; align-items: center;">
+              <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; background-color: rgba(0, 122, 204, 0.2); color: #007ACC; margin-right: 0.5rem;">
+                <i class="ri-code-s-slash-line" style="margin-right: 0.25rem;"></i> 
+                Essential Tools
+              </span>
+              <span style="font-size: 0.875rem; color: var(--muted);">Module 5 of 5</span>
+            </div>
+          </div>
+          
+          <div style="background-color: var(--background); border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden; margin-bottom: 1.5rem;">
+            <div style="padding: 1.5rem;">
+              <p style="color: var(--muted); margin-bottom: 1rem;">
+                Discover how Visual Studio Code transforms intimidating Git commands into friendly buttons and visual tools that make version control accessible for every student. Perfect for grade 7-8 CS classrooms!
+              </p>
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; padding: 0.5rem 1rem; background-color: var(--surface); border-radius: 0.5rem;">
+                  <span style="margin-right: 0.5rem;">👨‍💻</span>
+                  <span style="font-size: 0.875rem; color: var(--foreground);">Visual Interface</span>
+                </div>
+                <div style="display: flex; align-items: center; padding: 0.5rem 1rem; background-color: var(--surface); border-radius: 0.5rem;">
+                  <span style="margin-right: 0.5rem;">🔘</span>
+                  <span style="font-size: 0.875rem; color: var(--foreground);">Click, Don't Type</span>
+                </div>
+                <div style="display: flex; align-items: center; padding: 0.5rem 1rem; background-color: var(--surface); border-radius: 0.5rem;">
+                  <span style="margin-right: 0.5rem;">🎯</span>
+                  <span style="font-size: 0.875rem; color: var(--foreground);">Beginner Friendly</span>
+                </div>
+              </div>
+            </div>
+          </div>          <!-- Why VS Code for Git Section -->
+          <h3>Why VS Code Makes Git Easy for Students</h3>
+          <p style="color: var(--muted); margin-bottom: 1.5rem;">
+            Think of VS Code as your friendly Git assistant - it takes scary command lines and turns them into simple buttons and colorful visuals that make sense!
+          </p>
+
+        <div class="vscode-interface">
+          <div class="interface-header">
+            <div class="interface-title">🎨 Visual Git Magic in VS Code</div>
+            <div class="interface-subtitle">No more scary terminal commands - just point and click!</div>
+          </div>
+          <div class="vscode-features">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-eye-line"></i>
+              </div>
+              <div class="feature-title">See Your Changes</div>
+              <div class="feature-description">
+                VS Code highlights exactly what you've changed with pretty colors - green for new stuff, red for deleted stuff!
+              </div>
+              <div class="feature-example">
+                <span style="background: #d4edda; color: #155724;">+ This line was added</span><br>
+                <span style="background: #f8d7da; color: #721c24;">- This line was removed</span>
+              </div>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-mouse-line"></i>
+              </div>
+              <div class="feature-title">Point & Click Git</div>
+              <div class="feature-description">
+                Forget typing commands! VS Code gives you buttons for everything - commit, push, pull, branch, merge!
+              </div>
+              <div class="feature-example">
+                ✅ Commit Button<br>
+                ⬆️ Push Button<br>
+                ⬇️ Pull Button<br>
+                🌿 New Branch Button
+              </div>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-timeline-line"></i>
+              </div>
+              <div class="feature-title">Visual History</div>
+              <div class="feature-description">
+                See your project's story like a timeline! Each commit shows who did what and when, just like a social media feed.
+              </div>
+              <div class="feature-example">
+                📅 Yesterday: "Fixed the homepage"<br>
+                📅 Last week: "Added cool animations"<br>
+                📅 Last month: "Started the project"
+              </div>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-shield-check-line"></i>
+              </div>
+              <div class="feature-title">Mistake Protection</div>
+              <div class="feature-description">
+                VS Code warns you before you do anything dangerous and shows you exactly what will happen!
+              </div>
+              <div class="feature-example">
+                ⚠️ "Are you sure you want to delete this?"<br>
+                💡 "This will affect 3 files"<br>
+                🔄 "You can undo this anytime"
+              </div>
+            </div>
+          </div>
+        </div>          <!-- Command Line vs VS Code Comparison -->
+          <div class="card">
+            <h3>🤯 Command Line vs 😎 VS Code - You Choose!</h3>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>What You Want to Do</th>
+                <th>😰 Scary Command Line Way</th>
+                <th>😊 Easy VS Code Way</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Save your work (commit)</strong></td>
+                <td><code>git add .</code><br><code>git commit -m "message"</code></td>
+                <td>📝 Type message in text box → Click ✅ commit button</td>
+              </tr>
+              <tr>
+                <td><strong>Upload to GitHub (push)</strong></td>
+                <td><code>git push origin main</code></td>
+                <td>Click the ⬆️ push button (that's it!)</td>
+              </tr>
+              <tr>
+                <td><strong>Download updates (pull)</strong></td>
+                <td><code>git pull origin main</code></td>
+                <td>Click the ⬇️ pull button</td>
+              </tr>
+              <tr>
+                <td><strong>Create new branch</strong></td>
+                <td><code>git checkout -b new-branch</code></td>
+                <td>Click branch name → "Create new branch" → type name</td>
+              </tr>
+              <tr>
+                <td><strong>See what changed</strong></td>
+                <td><code>git status</code><br><code>git diff</code></td>
+                <td>Look at the pretty colored sidebar! 🌈</td>
+              </tr>
+            </tbody>
+          </table>          </div>
+        </section>
+
+        <!-- Interactive VS Code Demo -->
+        <section class="section">
+          <h3>🎮 Try VS Code Git Features</h3>
+          <p style="color: var(--muted); margin-bottom: 1.5rem;">
+            Click the buttons below to see how VS Code makes Git operations super simple!
+          </p>
+
+        <div class="git-visual-demo">
+          <h3>🎯 Interactive Git Demo</h3>
+          <p>Imagine you're working on your class website project...</p>
+          
+          <div class="demo-buttons">
+            <button class="demo-button" onclick="showDemo('changes')">
+              <i class="ri-file-edit-line"></i> See My Changes
+            </button>
+            <button class="demo-button" onclick="showDemo('commit')">
+              <i class="ri-save-line"></i> Save My Work
+            </button>
+            <button class="demo-button" onclick="showDemo('push')">
+              <i class="ri-upload-cloud-line"></i> Share to GitHub
+            </button>
+            <button class="demo-button" onclick="showDemo('branch')">
+              <i class="ri-git-branch-line"></i> Create New Feature
+            </button>
+          </div>
+
+          <div id="demo-changes" class="demo-result">
+            <h4>📁 Source Control Panel Shows:</h4>
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; font-family: monospace;">
+              <div style="color: #28a745;">📄 index.html (2 changes)</div>
+              <div style="color: #ffc107;">📄 style.css (1 change)</div>
+              <div style="color: #28a745;">📄 script.js (new file)</div>
+            </div>
+            <p><strong>What this means:</strong> VS Code shows you exactly which files changed, with different colors for different types of changes!</p>
+          </div>
+
+          <div id="demo-commit" class="demo-result">
+            <h4>💾 Commit Your Changes:</h4>
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem;">
+              <div style="margin-bottom: 1rem;">
+                <label><strong>Commit Message:</strong></label><br>
+                <input type="text" value="Added cool animation to homepage" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 0.25rem;" readonly>
+              </div>
+              <button style="background: #28a745; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem;">✅ Commit</button>
+            </div>
+            <p><strong>What this means:</strong> Just type what you did and click commit - VS Code saves a snapshot of your work!</p>
+          </div>
+
+          <div id="demo-push" class="demo-result">
+            <h4>🚀 Push to GitHub:</h4>
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem;">
+              <div style="margin-bottom: 1rem;">
+                <i class="ri-loading-line" style="animation: spin 1s linear infinite;"></i> Uploading your changes to GitHub...
+              </div>
+              <div style="color: #28a745;">✅ Successfully pushed to GitHub!</div>
+              <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
+                Your teammates can now see your awesome animation!
+              </div>
+            </div>
+            <p><strong>What this means:</strong> Your work is now saved online where your whole team can access it!</p>
+          </div>
+
+          <div id="demo-branch" class="demo-result">
+            <h4>🌿 Create New Branch:</h4>
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem;">
+              <div style="margin-bottom: 1rem;">
+                <label><strong>Branch Name:</strong></label><br>
+                <input type="text" value="add-contact-page" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 0.25rem;" readonly>
+              </div>
+              <button style="background: #007ACC; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.25rem;">🌿 Create Branch</button>
+            </div>
+            <p><strong>What this means:</strong> You created a safe space to work on new features without breaking the main project!</p>
+          </div>          </div>
+        </section>
+
+        <!-- Getting Started Guide -->
+        <section class="section">
+          <h3>🚀 Getting Started: Your First VS Code Git Adventure</h3>
+        
+        <div class="classroom-activity">
+          <div class="activity-header">
+            <div class="activity-icon">
+              <i class="ri-rocket-line"></i>
+            </div>
+            <div class="activity-title">Step-by-Step Student Setup</div>
+          </div>
+          
+          <div class="steps-container">
+            <div class="step">
+              <h4><span class="step-counter">1</span>Install VS Code</h4>
+              <p>Download VS Code from <code>code.visualstudio.com</code> - it's free! Think of it as downloading a super-powered text editor that makes coding fun.</p>              <div class="teacher-tip">
+                <div class="tip-header">
+                  <i class="ri-lightbulb-line"></i>
+                  <strong>Teacher Tip:</strong>
+                </div>
+                Set up VS Code on all classroom computers ahead of time to save class time!
+              </div>
+            </div>
+            
+            <div class="step">
+              <h4><span class="step-counter">2</span>Open Your Project</h4>
+              <p>Use File → Open Folder to open your project folder. VS Code will automatically detect if it's a Git repository!</p>
+              <div class="vs-terminal-demo">
+                <div class="terminal-prompt">📁 Opening project folder...</div>
+                <div class="terminal-output">✅ Git repository detected!</div>
+                <div class="terminal-output">🎉 Source Control panel is now active!</div>
+              </div>
+            </div>
+            
+            <div class="step">
+              <h4><span class="step-counter">3</span>Find the Git Tools</h4>
+              <p>Look for the Source Control icon in the left sidebar (it looks like a branching tree 🌿). Click it to see all your Git superpowers!</p>
+              <div class="feature-example">
+                📁 Explorer (files)<br>
+                🔍 Search<br>
+                🌿 Source Control ← This is your Git magic!<br>
+                🐛 Run and Debug<br>
+                🧩 Extensions
+              </div>
+            </div>
+            
+            <div class="step">
+              <h4><span class="step-counter">4</span>Make Your First Change</h4>
+              <p>Edit any file in your project. Watch as VS Code immediately shows you what changed in the Source Control panel!</p>              <div class="student-tip">
+                <div class="tip-header">
+                  <i class="ri-heart-line"></i>
+                  <strong>Student Success Tip:</strong>
+                </div>
+                Start with something simple like changing the title of your webpage!
+              </div>
+            </div>
+            
+            <div class="step">
+              <h4><span class="step-counter">5</span>Commit Like a Pro</h4>
+              <p>Type a message describing what you changed, then click the ✅ commit button. You just saved a snapshot of your work!</p>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+              </div>
+              <p style="text-align: center; margin-top: 0.5rem; color: #28a745; font-weight: 600;">🎉 You're now a Git expert!</p>
+            </div>
+          </div>
+        </div>        </section>
+
+        <!-- Classroom Activities -->
+        <section class="section">
+          <h3>🎓 Fun Classroom Activities with VS Code Git</h3>
+        
+        <div class="grid">
+          <div class="card">
+            <h3>🏆 "Git Detective" Challenge</h3>
+            <p><strong>Activity:</strong> Students use VS Code's Git history to solve mysteries about who changed what in a shared project.</p>
+            <ul>
+              <li>Give students a project with intentional "bugs"</li>
+              <li>Have them use VS Code's blame feature to find who made each change</li>
+              <li>Students write "detective reports" explaining what they found</li>
+              <li>Teaches accountability and Git history navigation</li>
+            </ul>            <div class="teacher-tip">
+              <div class="tip-header">
+                <i class="ri-trophy-line"></i>
+                <strong>Learning Goal:</strong>
+              </div>
+              Understanding Git history and collaboration responsibility
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3>🎨 "Branch Art Gallery"</h3>
+            <p><strong>Activity:</strong> Each student creates a different webpage feature on their own branch, then merge them into one amazing website!</p>
+            <ul>
+              <li>Assign each student a webpage section (header, footer, gallery, etc.)</li>
+              <li>Students create branches with descriptive names</li>
+              <li>Use VS Code's visual merge tools to combine everyone's work</li>
+              <li>Celebrate the final collaborative website!</li>
+            </ul>            <div class="teacher-tip">
+              <div class="tip-header">
+                <i class="ri-palette-line"></i>
+                <strong>Learning Goal:</strong>
+              </div>
+              Branching, merging, and collaborative development
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3>⚡ "Speed Commit Championship"</h3>
+            <p><strong>Activity:</strong> Timed challenges where students practice making commits with good messages using VS Code's interface.</p>
+            <ul>
+              <li>Give students a list of changes to make</li>
+              <li>Students race to make commits with clear, descriptive messages</li>
+              <li>Judge based on message quality, not just speed</li>
+              <li>Builds muscle memory for the commit workflow</li>
+            </ul>            <div class="teacher-tip">
+              <div class="tip-header">
+                <i class="ri-timer-line"></i>
+                <strong>Learning Goal:</strong>
+              </div>
+              Fast, confident Git operations and good commit practices
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3>🔍 "Change Spotter"</h3>
+            <p><strong>Activity:</strong> Students use VS Code's diff viewer to spot differences between file versions, like a "find the differences" game!</p>
+            <ul>
+              <li>Provide before/after versions of code files</li>
+              <li>Students use VS Code to identify and explain all changes</li>
+              <li>Discuss which changes are improvements and why</li>
+              <li>Develops code review skills</li>
+            </ul>            <div class="teacher-tip">
+              <div class="tip-header">
+                <i class="ri-search-eye-line"></i>
+                <strong>Learning Goal:</strong>
+              </div>
+              Code review skills and attention to detail
+            </div>
+          </div>
+        </div>        </section>
+
+        <!-- Troubleshooting Guide -->
+        <section class="section">
+          <h3>🛠️ Common Issues & Easy Fixes</h3>
+          <p style="color: var(--muted); margin-bottom: 1.5rem;">
+            Even superheroes need help sometimes! Here are the most common VS Code Git issues students face and how to fix them quickly.
+          </p>
+        
+        <div class="grid">
+          <div class="card">
+            <h3>😵 "I Don't See the Source Control Panel!"</h3>
+            <p><strong>Problem:</strong> Student can't find Git features in VS Code.</p>
+            <p><strong>Quick Fix:</strong></p>
+            <ol>
+              <li>Make sure you opened a <em>folder</em>, not just a single file</li>
+              <li>Check if the folder contains a <code>.git</code> folder (it might be hidden)</li>
+              <li>If no Git repo exists, click "Initialize Repository" in the Source Control panel</li>
+            </ol>            <div class="teacher-tip">
+              <div class="tip-header">
+                <i class="ri-lightbulb-line"></i>
+                <strong>Prevention:</strong>
+              </div>
+              Always use "Open Folder" instead of "Open File"
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3>🔒 "VS Code Wants My GitHub Password!"</h3>
+            <p><strong>Problem:</strong> Student can't push to GitHub due to authentication.</p>
+            <p><strong>Quick Fix:</strong></p>
+            <ol>
+              <li>Install the "GitHub" extension in VS Code</li>
+              <li>Click "Sign in to GitHub" when prompted</li>
+              <li>Complete the browser authentication</li>
+              <li>VS Code will remember your login!</li>
+            </ol>            <div class="teacher-tip">
+              <div class="tip-header">
+                <i class="ri-shield-check-line"></i>
+                <strong>Teacher Note:</strong>
+              </div>
+              This is much easier than setting up SSH keys for beginners!
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3>😱 "I Accidentally Committed the Wrong Thing!"</h3>
+            <p><strong>Problem:</strong> Student made a commit they want to undo.</p>
+            <p><strong>Quick Fix:</strong></p>
+            <ol>
+              <li>In Source Control panel, click the "..." menu</li>
+              <li>Select "Undo Last Commit"</li>
+              <li>Your changes go back to being "uncommitted"</li>
+              <li>Fix what you need, then commit again!</li>
+            </ol>            <div class="student-tip">
+              <div class="tip-header">
+                <i class="ri-history-line"></i>
+                <strong>Relief:</strong>
+              </div>
+              Nothing is ever truly lost in Git - you can always undo!
+            </div>
+          </div>
+          
+          <div class="card">
+            <h3>🤔 "My Teammate's Changes Aren't Showing Up!"</h3>
+            <p><strong>Problem:</strong> Student can't see recent changes from GitHub.</p>
+            <p><strong>Quick Fix:</strong></p>
+            <ol>
+              <li>Click the ⬇️ pull button in the Source Control panel</li>
+              <li>Or use the "..." menu and select "Pull"</li>
+              <li>VS Code downloads all new changes from GitHub</li>
+              <li>Refresh your file explorer to see updates!</li>
+            </ol>            <div class="student-tip">
+              <div class="tip-header">
+                <i class="ri-refresh-line"></i>
+                <strong>Habit:</strong>
+              </div>
+              Always pull before starting work each day!
+            </div>
+          </div>
+        </div>        </section>
+
+        <!-- Assessment Guide -->
+        <section class="section">
+          <h3>📊 Assessment Ideas for Teachers</h3>
+        
+        <div class="card">
+          <h3>🎯 VS Code Git Skills Checklist</h3>
+          <p>Use this checklist to assess student mastery of VS Code Git integration:</p>
+          
+          <div class="grid">
+            <div class="assessment-category">
+              <h4>🌟 Beginner Level (All Students Should Master)</h4>
+              <ul class="checklist">
+                <li>✅ Can open a project folder in VS Code</li>
+                <li>✅ Can locate and use the Source Control panel</li>
+                <li>✅ Can see and understand file change indicators</li>
+                <li>✅ Can write clear commit messages</li>
+                <li>✅ Can commit changes using VS Code interface</li>
+                <li>✅ Can push commits to GitHub</li>
+                <li>✅ Can pull updates from GitHub</li>
+              </ul>
+            </div>
+            
+            <div class="assessment-category">
+              <h4>⭐ Intermediate Level (Stretch Goals)</h4>
+              <ul class="checklist">
+                <li>🎯 Can create and switch between branches</li>
+                <li>🎯 Can use VS Code's diff viewer to review changes</li>
+                <li>🎯 Can resolve simple merge conflicts in VS Code</li>
+                <li>🎯 Can view Git history and understand commit timeline</li>
+                <li>🎯 Can explain what each Git operation does</li>
+              </ul>
+            </div>
+          </div>
+            <div class="teacher-tip">
+            <div class="tip-header">
+              <i class="ri-trophy-line"></i>
+              <strong>Assessment Tip:</strong>
+            </div>
+            Focus on understanding over memorization - can students explain WHY they're doing each step?
+          </div>
+        </div>
+        
+        <div class="card">
+          <h3>📝 Project-Based Assessment Ideas</h3>
+          <div class="grid">
+            <div class="assessment-project">
+              <h4>🌐 "My Digital Portfolio" Project</h4>
+              <p>Students build a personal website and use VS Code Git features to:</p>
+              <ul>
+                <li>Make regular commits with descriptive messages</li>
+                <li>Create branches for different pages/features</li>
+                <li>Merge branches when features are complete</li>
+                <li>Deploy to GitHub Pages using VS Code</li>
+              </ul>
+              <p><strong>Assessment Focus:</strong> Consistent use of Git workflow and clear documentation</p>
+            </div>
+            
+            <div class="assessment-project">
+              <h4>👥 "Team Website Challenge"</h4>
+              <p>Groups of 3-4 students collaborate on a class project website:</p>
+              <ul>
+                <li>Each student works on different sections using branches</li>
+                <li>Students must resolve merge conflicts together</li>
+                <li>Use VS Code's blame feature to track contributions</li>
+                <li>Present final project explaining their Git workflow</li>
+              </ul>
+              <p><strong>Assessment Focus:</strong> Collaboration skills and conflict resolution</p>
+            </div>
+          </div>
+        </div>        </section>
+
+        <!-- Quick Reference -->
+        <section class="section">
+          <h3>📚 Quick Reference Guide</h3>
+        
+        <div class="grid">
+          <div class="card">
+            <h3>🖱️ Essential VS Code Git Buttons</h3>
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Button/Icon</th>
+                  <th>What It Does</th>
+                  <th>When To Use It</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>✅ Commit button</td>
+                  <td>Saves a snapshot of your work</td>
+                  <td>After making changes you want to keep</td>
+                </tr>
+                <tr>
+                  <td>⬆️ Push arrow</td>
+                  <td>Uploads your commits to GitHub</td>
+                  <td>When you want to share your work</td>
+                </tr>
+                <tr>
+                  <td>⬇️ Pull arrow</td>
+                  <td>Downloads updates from GitHub</td>
+                  <td>Before starting work each day</td>
+                </tr>
+                <tr>
+                  <td>🌿 Branch name</td>
+                  <td>Shows/switches current branch</td>
+                  <td>To work on different features</td>
+                </tr>
+                <tr>
+                  <td>... More menu</td>
+                  <td>Access to advanced Git features</td>
+                  <td>For undo, stash, and other tools</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="card">
+            <h3>🎨 Understanding VS Code Git Colors</h3>
+            <div class="color-guide">
+              <div class="color-item">
+                <span class="color-box" style="background: #28a745;"></span>
+                <strong>Green:</strong> New files or added lines
+              </div>
+              <div class="color-item">
+                <span class="color-box" style="background: #ffc107;"></span>
+                <strong>Yellow/Orange:</strong> Modified files
+              </div>
+              <div class="color-item">
+                <span class="color-box" style="background: #dc3545;"></span>
+                <strong>Red:</strong> Deleted files or removed lines
+              </div>
+              <div class="color-item">
+                <span class="color-box" style="background: #6c757d;"></span>
+                <strong>Gray:</strong> Ignored files (like .gitignore)
+              </div>
+            </div>
+          </div>          </div>
+        </section>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <i class="ri-github-fill"></i>
+            <span>Git & GitHub Classroom Companion</span>
+          </div>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="git-basics.html">Modules</a>
+            <a href="templates.html">Resources</a>
+            <a href="feedback.html">Feedback</a>
+          </div>
+          <div class="footer-copyright">
+            <p>&copy; 2025 Git & GitHub Classroom Companion. Created for CS Teachers.</p>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+  <script>
+    // Interactive demo functionality
+    function showDemo(demoType) {
+      // Hide all demo results
+      const allDemos = document.querySelectorAll('.demo-result');
+      allDemos.forEach(demo => {
+        demo.classList.remove('active');
+      });
+      
+      // Show the selected demo
+      const selectedDemo = document.getElementById(`demo-${demoType}`);
+      if (selectedDemo) {
+        selectedDemo.classList.add('active');
+      }
+    }
+    
+    // Add some interactivity to the checklist items
+    document.addEventListener('DOMContentLoaded', function() {
+      const checklistItems = document.querySelectorAll('.checklist li');
+      checklistItems.forEach(item => {
+        item.addEventListener('click', function() {
+          this.style.opacity = this.style.opacity === '0.6' ? '1' : '0.6';
+        });
+      });
+    });
+  </script>
+  
+  <style>
+    .color-guide {
+      display: grid;
+      gap: 1rem;
+    }
+    
+    .color-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .color-box {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 0.25rem;
+      border: 1px solid #ddd;
+    }
+    
+    .assessment-category {
+      background: var(--background);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+    }
+    
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .checklist li {
+      padding: 0.5rem 0;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    
+    .checklist li:hover {
+      background: var(--muted-background);
+      padding-left: 0.5rem;
+      border-radius: 0.25rem;
+    }
+    
+    .assessment-project {
+      background: var(--background);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+    }
+    
+    .assessment-project h4 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</body>
+</html>
